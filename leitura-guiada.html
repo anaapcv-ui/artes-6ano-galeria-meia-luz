@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leitura Guiada · Galeria da Meia-Luz · Arte 6º</title>
+<style>
+  :root{
+    --palco:#141019; --palco2:#1e1826; --aco:#2e2838; --aco2:#403850;
+    --ambar:#e8b84b; --magenta:#ff4d8d; --ciano:#35d0e0; --verde:#3ddc84; --verde2:#248a56;
+    --vermelho:#ff5d5d; --texto:#efeaf2; --cinza:#9a94a8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:
+    radial-gradient(1100px 480px at 50% -10%,#2a1838,#141019 60%),var(--palco);
+    color:var(--texto);line-height:1.6;padding-bottom:60px}
+  header{background:linear-gradient(120deg,#2a1033,#3a2045);padding:26px 18px;text-align:center;
+    box-shadow:0 4px 18px rgba(0,0,0,.5);border-bottom:4px solid var(--ambar)}
+  header .selo{font-size:.78rem;letter-spacing:2px;color:#ffe3b3;text-transform:uppercase}
+  header h1{font-size:1.5rem;margin:6px 0 2px}
+  header p{color:#f1d9e5;font-size:.92rem}
+  .wrap{max-width:820px;margin:0 auto;padding:16px}
+  .barra-nav{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:16px 0}
+  .barra-nav a{background:var(--palco2);color:var(--texto);text-decoration:none;padding:7px 12px;
+    border-radius:20px;font-size:.85rem;border:1px solid var(--aco)}
+  .barra-nav a.on{background:var(--ambar);color:#2a1a00;font-weight:bold}
+  .barra-nav a.lock{opacity:.5}
+  .intro{background:var(--palco2);border:1px solid var(--aco);border-radius:14px;padding:16px;margin-bottom:16px}
+  .intro h2{color:var(--ambar);font-size:1.1rem;margin-bottom:8px}
+  .intro ol{margin:8px 0 0 20px}
+  .painel{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;
+    background:var(--palco2);border:1px solid var(--aco);border-radius:12px;padding:10px 14px;margin-bottom:16px;font-size:.85rem}
+  .painel .btns{display:flex;gap:6px;flex-wrap:wrap}
+  button{cursor:pointer;font-family:inherit}
+  .mini{background:var(--palco);color:var(--texto);border:1px solid var(--aco2);border-radius:8px;padding:6px 10px;font-size:.8rem}
+  .mini:hover{background:#2a2636}
+  /* linha do tempo */
+  .tl{background:var(--palco2);border:1px solid var(--aco);border-radius:16px;padding:16px;margin-bottom:18px}
+  .tl h3{color:var(--ciano);margin-bottom:6px}
+  .tl p.sub{color:var(--cinza);font-size:.85rem;margin-bottom:10px}
+  .tl-track{display:flex;gap:10px;overflow-x:auto;padding:12px 4px 8px;scroll-snap-type:x mandatory}
+  .tl-item{flex:0 0 160px;scroll-snap-align:start;background:#1b1626;border:1px solid var(--aco2);border-top:4px solid var(--ciano);border-radius:10px;padding:10px;cursor:pointer;transition:transform .15s}
+  .tl-item:hover{transform:translateY(-3px);border-color:var(--ambar)}
+  .tl-item.u6{border-top-color:var(--ambar)}
+  .tl-item .ano{font-weight:bold;color:var(--ambar);font-size:1.05rem}
+  .tl-item.u7 .ano{color:var(--ciano)}
+  .tl-item .ev{font-size:.82rem;color:var(--texto)}
+  .tl-item .quem{font-size:.72rem;color:var(--cinza);margin-top:4px}
+  .bloco{background:var(--palco2);border:1px solid var(--aco);border-radius:16px;margin-bottom:18px;overflow:hidden;box-shadow:0 3px 12px rgba(0,0,0,.35)}
+  .bloco.travado{opacity:.55}
+  .bloco-cab{display:flex;align-items:center;gap:12px;padding:14px 16px;background:linear-gradient(90deg,#241a2c,#2e2038);border-bottom:1px solid var(--aco)}
+  .bloco-cab .num{background:var(--ambar);color:#2a1a00;font-weight:bold;width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .bloco.u7 .bloco-cab .num{background:var(--ciano);color:#04232a}
+  .bloco-cab h3{font-size:1.06rem;color:#fff}
+  .bloco-cab .porto{font-size:.7rem;color:var(--cinza);letter-spacing:1px;text-transform:uppercase}
+  .bloco-corpo{padding:16px}
+  .texto p{margin-bottom:10px}
+  .texto ul{margin:0 0 10px 20px}
+  .texto li{margin-bottom:5px}
+  .texto .destaque{color:var(--ambar);font-weight:bold}
+  .bloco.u7 .texto .destaque{color:var(--ciano)}
+  .olhar{background:#241426;border-left:3px solid var(--magenta);padding:8px 12px;margin:0 0 10px;border-radius:0 8px 8px 0;font-size:.92rem}
+  .olhar b{color:var(--magenta)}
+  .cadeado{padding:22px 16px;text-align:center;color:var(--cinza);font-size:.9rem}
+  .perg{background:#1b1626;border:1px solid var(--aco);border-radius:12px;padding:12px;margin-top:14px}
+  .perg.red{border-color:var(--vermelho);box-shadow:0 0 0 1px var(--vermelho)}
+  .perg .tag{display:inline-block;font-size:.66rem;text-transform:uppercase;letter-spacing:1px;padding:2px 8px;border-radius:10px;margin-bottom:6px}
+  .tag.conc{background:#163a44;color:#8fd9e4}
+  .tag.apl{background:#1d4530;color:#a7e0bf}
+  .perg label{display:block;font-weight:600;margin-bottom:8px}
+  .perg textarea{width:100%;min-height:70px;background:#0e0b14;color:var(--texto);border:1px solid var(--aco2);border-radius:8px;padding:9px;font-family:inherit;font-size:.95rem;resize:vertical}
+  .aviso{margin-top:8px;padding:9px 11px;border-radius:8px;font-size:.85rem;display:none}
+  .aviso.amarelo{display:block;background:#4a3d12;border:1px solid var(--ambar);color:#ffe9ad}
+  .aviso.vermelho{display:block;background:#4a1717;border:1px solid var(--vermelho);color:#ffc9c9}
+  .modelo{margin-top:10px;padding:10px 12px;background:#0e2b1f;border:1px solid var(--verde);border-radius:8px;font-size:.9rem;display:none}
+  .modelo.show{display:block}
+  .modelo .lab{color:#8fe0b4;font-weight:bold;font-size:.78rem;text-transform:uppercase;letter-spacing:1px}
+  .chk{margin-top:10px;font-size:.88rem}
+  .chk .item{display:flex;align-items:center;gap:8px;margin:6px 0;flex-wrap:wrap}
+  .chk .item span{flex:1;min-width:180px}
+  .chk .simnao button{border:1px solid var(--aco2);background:#0e0b14;color:var(--texto);border-radius:6px;padding:4px 10px;margin-left:4px;font-size:.8rem}
+  .chk .simnao button.sim.ativo{background:var(--verde);border-color:var(--verde);color:#04231a}
+  .chk .simnao button.nao.ativo{background:var(--vermelho);border-color:var(--vermelho);color:#fff}
+  .conferir{margin-top:14px;background:var(--verde);color:#04231a;border:none;border-radius:10px;padding:11px 18px;font-size:1rem;font-weight:bold;width:100%}
+  .conferir:disabled{background:#2a2636;color:#6f6a7c;cursor:not-allowed}
+  .status-bloco{margin-top:10px;text-align:center;font-weight:bold;font-size:.95rem}
+  .prox{margin-top:12px;text-align:center}
+  .prox a{color:var(--ciano);text-decoration:none;font-weight:bold}
+  .peg{background:#3a1414;border:2px solid var(--vermelho);border-radius:16px;padding:16px;margin-top:20px}
+  .peg h3{color:#ffb3b3;margin-bottom:10px}
+  .peg ol{margin-left:20px}
+  .peg li{margin-bottom:7px}
+  .cobertura{background:var(--palco2);border:1px solid var(--aco);border-radius:16px;padding:16px;margin-top:18px}
+  .cobertura h3{color:var(--ciano);margin-bottom:10px}
+  table{width:100%;border-collapse:collapse;font-size:.85rem}
+  th,td{border:1px solid var(--aco);padding:7px 9px;text-align:left}
+  th{background:#241a2c}
+  .revisar{background:#3a2e06;border:2px solid var(--ambar);border-radius:16px;padding:16px;margin-top:18px}
+  .revisar h3{color:var(--ambar);margin-bottom:8px}
+  .revisar ul{margin-left:18px}
+  .relatorio{background:var(--palco2);border:1px dashed var(--ciano);border-radius:14px;padding:16px;margin-top:18px;font-size:.9rem}
+  .relatorio h3{color:var(--ciano);margin-bottom:8px}
+  .trilha-fim{background:linear-gradient(120deg,#1b2a1f,#163a2a);border:2px solid var(--verde);border-radius:16px;padding:18px;margin-top:18px;text-align:center}
+  .trilha-fim h3{color:#8fe0b4;margin-bottom:8px}
+  .trilha-fim a.btn{display:inline-block;margin-top:8px;background:var(--verde);color:#04231a;text-decoration:none;font-weight:bold;padding:11px 20px;border-radius:10px}
+  .trilha-fim a.btn.off{background:#2a2636;color:#6f6a7c;pointer-events:none}
+  .modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.78);z-index:50;align-items:center;justify-content:center;padding:16px}
+  .modal-bg.show{display:flex}
+  .modal{background:var(--palco2);border:1px solid var(--ciano);border-radius:14px;padding:20px;max-width:420px;text-align:center}
+  .modal p{margin-bottom:14px}
+  .modal button{background:var(--ciano);color:#04232a;border:none;border-radius:8px;padding:9px 16px;font-weight:bold}
+  .rodape{text-align:center;color:var(--cinza);font-size:.8rem;margin-top:24px}
+</style>
+</head>
+<body>
+<header>
+  <div class="selo">Galeria da Meia-Luz · Arte 6º ano · CCF</div>
+  <h1>📖 Leitura Guiada</h1>
+  <p>Capítulos 6 e 7 · Prova 20/10 · Callis Arte 6 (pp. 92–117)</p>
+</header>
+
+<div class="wrap">
+  <nav class="barra-nav" id="nav">
+    <a class="on" href="leitura-guiada.html">📖 Leitura Guiada</a>
+    <a href="quiz.html" data-etapa="quiz">🎯 Quiz</a>
+    <a href="resumo.html" data-etapa="resumo">🗺️ Resumo</a>
+    <a href="simulado.html" data-etapa="simulado">📝 Simulado</a>
+    <a href="index.html">🏠 Início</a>
+  </nav>
+
+  <div class="intro">
+    <h2>🖼️ Como visitar esta galeria</h2>
+    <p>Esta leitura é uma galeria à noite com <b>7 salas</b>: as três primeiras são da <b>cultura popular brasileira</b> (Capítulo 6) e as quatro últimas, do <b>retrato, do autorretrato e da música</b> (Capítulo 7). Em cada sala, leia o texto e <b>escreva com as suas palavras</b> as respostas das 3 perguntas. A próxima sala só acende quando você conferir a anterior.</p>
+    <ol>
+      <li>Leia a sala com calma (tudo aqui vem do seu livro).</li>
+      <li>Responda as 3 perguntas <b>escrevendo</b> (não vale copiar o texto).</li>
+      <li>Clique em <b>Conferir</b>: aparece a resposta-modelo e uma autoavaliação Sim/Não.</li>
+      <li>Com as 7 salas conferidas e a autoavaliação respondida, o <b>🎯 Quiz destrava</b>.</li>
+    </ol>
+  </div>
+
+  <div class="painel">
+    <span id="salvo">💾 Progresso salvo automaticamente.</span>
+    <div class="btns">
+      <button class="mini" onclick="exportar()">📥 Exportar</button>
+      <button class="mini" onclick="document.getElementById('imp').click()">📤 Importar</button>
+      <input type="file" id="imp" accept="application/json" style="display:none" onchange="importar(event)">
+      <button class="mini" onclick="pedirZerar()">🗑️ Zerar tudo</button>
+    </div>
+  </div>
+
+  <div class="tl">
+    <h3>🕰️ Linha do tempo da galeria</h3>
+    <p class="sub">Clique num marco para ir à sala em que ele aparece. Dourado = Capítulo 6 · Azul = Capítulo 7.</p>
+    <div class="tl-track" id="tl"></div>
+  </div>
+
+  <div id="blocos"></div>
+
+  <div class="peg">
+    <h3>⚠️ 10 Pegadinhas da Prova (não caia nelas!)</h3>
+    <ol>
+      <li><b>Folclore = origem anônima + passa de geração em geração.</b> Se alguém sabe quem criou, não é folclore. O Bumba meu boi (Maranhão) é folclore e Patrimônio Cultural.</li>
+      <li><b>Patrimônio material × imaterial:</b> <b>material</b> = monumentos e edifícios (dá para tocar); <b>imaterial</b> = tradições e modos de vida (danças, festas, saberes). O teatro de mamulengos é <b>imaterial</b>.</li>
+      <li><b>Naïf</b> é palavra <b>francesa</b> = "natural", "espontâneo", "primitivo". O artista naïf usa <b>cores fortes</b>, traços simples e <b>não</b> usa perspectiva.</li>
+      <li><b>Militão dos Santos</b> é da arte <b>naïf</b>, nasceu em <b>Caruaru (PE)</b> e é exemplo de superação (tem a audição comprometida). Não confunda com os artistas do retrato (Capítulo 7).</li>
+      <li><b>Mamulengo</b> vem de <b>"mão molenga"</b> ("mão mole"), porque o boneco é manipulado pelas mãos, numa espécie de luva. É típico de <b>Pernambuco</b>.</li>
+      <li><b>Retrato × autorretrato:</b> <b>retrato</b> = o artista representa <b>outra pessoa</b>; <b>autorretrato</b> = o artista representa <b>a si mesmo</b>. Selfie é o autorretrato de hoje.</li>
+      <li><b>Mona Lisa</b> é de <b>Leonardo da Vinci</b>, do <b>Renascimento italiano</b> — é o retrato mais famoso do período. Não é de Dürer nem de Picasso.</li>
+      <li><b>Renascimento</b> = séculos <b>XIV a XVII</b>, valoriza a cultura <b>greco-romana</b>, marca a passagem da Idade Média para a Idade Moderna; palavras-chave: <b>proporção, simetria, perspectiva e humanismo</b>.</li>
+      <li><b>Egito × Grécia × Renascimento:</b> no Egito só <b>faraós e família</b> eram retratados; na Grécia só os <b>soberanos</b>; no Renascimento o retrato virou gênero popular (nobres e aristocratas).</li>
+      <li><b>Compositor × intérprete:</b> o <b>compositor escreve</b> a música; o <b>intérprete executa ou canta</b>. Maria Gadú compôs "Shimbalaiê" aos 10 anos — a palavra significa "momento de extrema felicidade".</li>
+    </ol>
+  </div>
+
+  <div class="cobertura">
+    <h3>🧭 Cobertura: Tópico → Sala</h3>
+    <table>
+      <thead><tr><th>Tópico da prova</th><th>Páginas (Callis Arte 6)</th><th>Sala</th></tr></thead>
+      <tbody>
+        <tr><td>Folclore, critério (geração/anônimo), Patrimônio Cultural material e imaterial, Bumba meu boi</td><td>94–95</td><td>1</td></tr>
+        <tr><td>Arte naïf; Patrícia Helney; Militão dos Santos</td><td>95–96</td><td>2</td></tr>
+        <tr><td>Teatro de mamulengos: boneco, mestres, "mão molenga", Iphan</td><td>98</td><td>3</td></tr>
+        <tr><td>Retrato e autorretrato; Egito, Grécia, Renascimento; Mona Lisa</td><td>106</td><td>4</td></tr>
+        <tr><td>Renascimento: época, humanismo, perspectiva; Capela Sistina</td><td>107</td><td>5</td></tr>
+        <tr><td>Mestres: Van Dyck, Renoir, Picasso, Courbet, Van Gogh, Dalí, Lasar Segall, Dürer, Frida; selfie</td><td>108–114</td><td>6</td></tr>
+        <tr><td>Música e emoções; compositor e intérprete; Maria Gadú / Shimbalaiê</td><td>115–116</td><td>7</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="revisar" id="revisar" style="display:none">
+    <h3>🔁 Para revisar antes da prova</h3>
+    <ul id="revisar-lista"></ul>
+  </div>
+
+  <div class="relatorio">
+    <h3>📊 Para os pais (resumo desta leitura)</h3>
+    <div id="rel-conteudo">Assim que o aprendiz for conferindo as salas, o resumo aparece aqui.</div>
+  </div>
+
+  <div class="trilha-fim" id="trilha-fim">
+    <h3>🔒 Próxima etapa: Quiz</h3>
+    <p id="trilha-fim-txt">O Quiz destrava quando as 7 salas estiverem conferidas e a autoavaliação respondida.</p>
+    <a class="btn off" id="btn-prox" href="quiz.html">🎯 Ir para o Quiz</a>
+  </div>
+
+  <div class="rodape">Feito com carinho para o jovem aprendiz. 🖼️ Boa prova!</div>
+</div>
+
+<div class="modal-bg" id="modal">
+  <div class="modal">
+    <p id="modal-txt"></p>
+    <button onclick="fecharModal()" id="modal-ok">Ok</button>
+    <button class="mini" onclick="fecharModal()" id="modal-cancel" style="display:none;margin-left:8px">Cancelar</button>
+  </div>
+</div>
+
+<script>
+/* ====== TRILHA COM CADEADOS (módulo comum do kit) ====== */
+var KIT='galeria_meialuz';
+var TRILHA=[
+ {id:'leitura', chave:KIT+'_leitura_v1', nome:'Leitura Guiada', arquivo:'leitura-guiada.html', emoji:'📖'},
+ {id:'quiz', chave:KIT+'_quiz_v1', nome:'Quiz', arquivo:'quiz.html', emoji:'🎯'},
+ {id:'resumo', chave:KIT+'_resumo_v1', nome:'Resumo', arquivo:'resumo.html', emoji:'🗺️'},
+ {id:'simulado', chave:KIT+'_simulado_v1', nome:'Simulado', arquivo:'simulado.html', emoji:'📝'}
+];
+function lerJSON(k){ try{ var s=localStorage.getItem(k); return s?JSON.parse(s):null; }catch(e){ return null; } }
+function trilhaLiberada(){ var t=lerJSON(KIT+'_trilha_v1'); return !!(t&&t.liberadoPelosPais); }
+function etapaConcluida(id){ var e=TRILHA.filter(function(t){return t.id===id;})[0]; var d=lerJSON(e.chave); return !!(d&&d.concluido); }
+function podeAbrir(id){ var idx=TRILHA.map(function(t){return t.id;}).indexOf(id); if(idx<=0||trilhaLiberada()) return true; return etapaConcluida(TRILHA[idx-1].id); }
+function marcarNav(){
+  var links=document.querySelectorAll('#nav a[data-etapa]');
+  for(var i=0;i<links.length;i++){ var id=links[i].getAttribute('data-etapa'); if(!podeAbrir(id)){ links[i].classList.add('lock'); links[i].textContent='🔒 '+links[i].textContent.replace('🔒 ',''); links[i].setAttribute('title','Ainda trancado'); } else { links[i].classList.remove('lock'); links[i].textContent=links[i].textContent.replace('🔒 ',''); } }
+}
+
+/* ====== DADOS DAS SALAS (conteúdo real do livro Callis Arte 6 — Capítulos 6 e 7) ====== */
+var BLOCOS = [
+ {
+  porto:"Sala 1 · Capítulo 6", emoji:"🎉", u:"u6",
+  titulo:"Folclore: a cultura do nosso povo",
+  texto:[
+   "O Brasil tem um dos <span class='destaque'>folclores mais ricos do mundo</span>. <b>Folclore</b> é o conjunto de costumes, danças, lendas, festejos, sabores e comemorações que acontecem de norte a sul do país. Ele <b>preserva a memória do povo</b> e as tradições. Fazem parte dele o Frevo, o Maracatu, o Bumba meu boi, o Samba, o Cordel, as Quadrilhas Juninas, a Capoeira e muitos outros.",
+   "Para uma expressão ser <span class='destaque'>parte do folclore</span>, ela precisa de duas coisas, segundo os folcloristas: ser uma <b>tradição transmitida de geração em geração</b> e ter <b>origem anônima</b> (ninguém sabe exatamente quem a criou). O <b>Bumba meu boi</b>, que nasceu no <b>Maranhão</b>, é um exemplo: virou festejo e se tornou <b>Patrimônio Cultural brasileiro</b>.",
+   "O <span class='destaque'>Patrimônio Cultural</span> representa a identidade de um povo e pode ser de dois tipos: <b>material</b> (coisas que se pode tocar, como monumentos e edifícios) ou <b>imaterial</b> (tradições e modos de vida de uma comunidade, como danças e festas). Preservá-lo é essencial para manter viva a diversidade dos modos de vida.",
+   "<div class='olhar'><b>Vocabulário:</b> <b>folclorista</b> é quem pesquisa e estuda as manifestações populares; <b>toada</b> é a linha melódica de uma canção, sobre a qual se encaixam os versos.</div>"
+  ],
+  perguntas:[
+   {tag:"conc",q:"Com as suas palavras, quais são as DUAS condições para uma expressão ser considerada folclore?",modelo:"Precisa ser uma tradição passada de geração em geração e ter origem anônima (não se sabe quem criou).",chk:["Falei que passa de geração em geração?","Falei que tem origem anônima / não se sabe quem criou?"]},
+   {tag:"apl",q:"Explique para um colega mais novo a diferença entre Patrimônio Cultural MATERIAL e IMATERIAL, dando um exemplo de cada.",modelo:"Material é o que se pode tocar: monumentos, edifícios. Imaterial são tradições e modos de vida: danças, festas, saberes (como o Bumba meu boi ou o teatro de mamulengos). O exemplo precisa bater com o tipo.",chk:["Expliquei o que é material (dá para tocar: monumentos/edifícios)?","Expliquei o que é imaterial (tradições/modos de vida) e dei um exemplo certo?"]},
+   {tag:"apl",q:"Um amigo diz: 'uma música que eu criei ontem já é folclore'. Usando o critério do livro, explique por que ele está enganado.",modelo:"Não é folclore porque se sabe quem a criou (ele) e porque ela acabou de nascer — não passou de geração em geração. O folclore precisa de origem anônima e de ser uma tradição antiga, transmitida ao longo do tempo.",chk:["Usei o critério da origem anônima (sabe-se quem criou)?","Usei o critério de passar de geração em geração / tradição antiga?"]}
+  ]
+ },
+ {
+  porto:"Sala 2 · Capítulo 6", emoji:"🎨", u:"u6",
+  titulo:"Cores da alegria: a arte naïf",
+  texto:[
+   "As <b>cores fortes</b> são um dos elementos que mais aparecem na cultura popular, em quadros e no artesanato. É nelas que se destaca a <span class='destaque'>arte naïf</span>. A palavra <b>naïf</b> é <b>francesa</b> e significa <b>'natural', 'espontâneo', 'primitivo'</b>.",
+   "Os <span class='destaque'>artistas naïfs</span> não se prendem a técnicas rígidas nem a estudos acadêmicos. Pintam de um jeito <b>livre e espontâneo</b>, explorando o <b>poder das cores</b>. Seus temas são o que é importante para eles: festas populares, a fauna e a flora. As figuras humanas e os objetos são feitos com <b>traços simples</b> e <b>não são retratados em perspectiva</b>. As cores fortes dão uma sensação de <b>movimento, leveza e alegria</b>.",
+   "Uma artista naïf é <span class='destaque'>Patrícia Helney</span>, que pintou 'Festa de São Sebastião na aldeia' (2017), em Campo Grande (MS).",
+   "<div class='olhar'><b>Conheça o artista:</b> <b>Militão dos Santos</b> (Antonio Militão dos Santos) também é da arte naïf. Nasceu em <b>Caruaru (PE), em 1956</b>, e é chamado de 'artista-poeta' pelas cores intensas e emocionantes. É um exemplo de <b>superação</b>: tem a audição totalmente comprometida; estudou no Ines (Instituto Nacional de Educação de Surdos), aprendeu Libras e composição de cores. Sua obra 'Bumba meu boi de São Luís' é de 2012.</div>"
+  ],
+  perguntas:[
+   {tag:"conc",q:"O que significa a palavra 'naïf' e de que língua ela vem?",modelo:"Naïf é uma palavra francesa que significa 'natural', 'espontâneo' e 'primitivo'.",chk:["Disse que vem do francês?","Disse o que significa (natural / espontâneo / primitivo)?"]},
+   {tag:"apl",q:"Você está num museu e vê um quadro de cores bem fortes, com figuras de traços simples, sem perspectiva, mostrando uma festa popular. Que estilo é esse? Aponte duas pistas que te ajudaram.",modelo:"É a arte naïf. Pistas: cores fortes, traços simples, ausência de perspectiva e tema de festa popular (basta citar duas).",chk:["Identifiquei a arte naïf?","Apontei pelo menos duas pistas (cores fortes, traços simples, sem perspectiva, festa popular)?"]},
+   {tag:"apl",q:"Por que o livro chama Militão dos Santos de 'exemplo de superação'? Conte com as suas palavras.",modelo:"Porque ele tem a audição totalmente comprometida e, mesmo assim, tornou-se um artista reconhecido: estudou no Ines, aprendeu Libras e composição de cores, e pinta com cores intensas e emocionantes.",chk:["Falei da deficiência auditiva dele?","Falei que, apesar disso, ele se tornou artista / estudou e usa cores intensas?"]}
+  ]
+ },
+ {
+  porto:"Sala 3 · Capítulo 6", emoji:"🧤", u:"u6",
+  titulo:"Bonecos que contam histórias: os mamulengos",
+  texto:[
+   "Entre as formas de contar histórias, lendas e <b>causos</b> da cultura popular, há o <span class='destaque'>teatro de bonecos</span>. Festeiros e grupos de teatro usam <b>bonecos, fantoches e marionetes</b> para narrar essas histórias — uma arte apreciada no Brasil desde a época colonial. Os bonecos eram feitos de pano, papel machê, madeira e chapas de ferro.",
+   "Na cultura popular do Nordeste, <b>especialmente em Pernambuco</b>, existe um tipo de fantoche chamado <span class='destaque'>mamulengo</span>. Nesse teatro, o <b>improviso</b> é constante: os artistas não seguem um texto fixo. Os <b>mestres</b> (quem produz e manipula os bonecos) dizem que vão 'brincar de mamulengo' e criam histórias com piadas, brincadeiras e correria entre os bonecos.",
+   "O nome <span class='destaque'>mamulengo</span> se refere a algo manipulado pelas mãos; a tradição diz que veio da expressão <b>'mão molenga'</b> ou 'mão mole', necessária para dar movimento aos bonecos, que são controlados por uma espécie de <b>luva</b>. O público vê só os bonecos, que ganham vida pela voz e pela manipulação dos atores. Os artistas costumam viajar de cidade em cidade.",
+   "<div class='olhar'><b>Olhar de prova:</b> o <b>Teatro de Bonecos Popular do Nordeste</b> (que inclui o teatro de mamulengos) é <b>Patrimônio Cultural imaterial</b>, reconhecido pelo <b>Iphan</b> (Instituto do Patrimônio Histórico e Artístico Nacional). <b>Causo</b> = história popular, contada de modo engraçado, sem certeza de ser verdade.</div>"
+  ],
+  perguntas:[
+   {tag:"conc",q:"De onde vem o nome 'mamulengo', segundo a tradição contada no livro?",modelo:"Vem da expressão 'mão molenga' (ou 'mão mole'), porque é preciso ter a mão mole para dar movimento ao boneco, que é manipulado pelas mãos, numa espécie de luva.",chk:["Liguei o nome a 'mão molenga' / 'mão mole'?","Expliquei que é por causa da manipulação do boneco com as mãos?"]},
+   {tag:"apl",q:"No teatro de mamulengos, o que quer dizer 'o improviso é constante'? Explique como isso aparece na apresentação.",modelo:"Quer dizer que os artistas não seguem um texto pronto: eles inventam na hora. Na apresentação, os mestres criam histórias com piadas, brincadeiras, brigas e correria entre os bonecos, mudando conforme o público.",chk:["Expliquei que improviso é criar na hora, sem texto fixo?","Dei um exemplo de como isso aparece (piadas, brincadeiras, correria, reação ao público)?"]},
+   {tag:"apl",q:"Por que podemos dizer que o teatro de mamulengos é um Patrimônio Cultural IMATERIAL, e não material? Justifique.",modelo:"Porque ele é uma tradição, um modo de contar histórias passado de geração em geração — não é um objeto ou edifício que se pode tocar. Por isso o Iphan o reconheceu como bem imaterial.",chk:["Disse que é uma tradição/modo de fazer, não um objeto?","Liguei isso à definição de patrimônio imaterial (tradições e modos de vida)?"]}
+  ]
+ },
+ {
+  porto:"Sala 4 · Capítulo 7", emoji:"🖼️", u:"u7",
+  titulo:"Retrato e autorretrato através do tempo",
+  texto:[
+   "Criar imagens de pessoas sempre esteve presente na arte. Um <span class='destaque'>retrato</span> é quando o artista representa <b>outra pessoa</b>; um <span class='destaque'>autorretrato</span> é quando ele representa <b>a si mesmo</b>. Mais do que copiar o rosto, há sempre escolhas de beleza e expressão.",
+   "Em cada época, o retrato teve usos diferentes. No <span class='destaque'>Egito antigo</span>, só os <b>faraós e a família</b> posavam, e eram representados como deuses. Na <span class='destaque'>Grécia antiga</span>, ser retratado era um privilégio restrito aos <b>soberanos</b>.",
+   "Já no <span class='destaque'>Renascimento italiano</span> (de meados do século XIV ao fim do século XVI), a imagem do ser humano virou uma grande preocupação dos artistas. Eles buscavam representar homens e mulheres valorizando a <b>proporção, a simetria e a perspectiva</b>. Nessa época, o retrato e o autorretrato se tornaram os <b>gêneros mais conhecidos da pintura</b>, usados para representar nobres e aristocratas.",
+   "<div class='olhar'><b>Olhar de prova:</b> o retrato mais famoso do Renascimento é a <b>Mona Lisa</b> (também chamada 'A Gioconda'), pintada por <b>Leonardo da Vinci (1452–1519)</b> sob encomenda. A obra guarda muitos mistérios sobre quem é a mulher retratada.</div>"
+  ],
+  perguntas:[
+   {tag:"conc",q:"Qual é a diferença entre um retrato e um autorretrato?",modelo:"No retrato, o artista representa outra pessoa; no autorretrato, ele representa a si mesmo.",chk:["Disse que retrato é representar outra pessoa?","Disse que autorretrato é o artista representar a si mesmo?"]},
+   {tag:"apl",q:"Ligue cada época ao que o livro diz sobre quem podia ser retratado: Egito antigo, Grécia antiga e Renascimento italiano.",modelo:"Egito antigo: só os faraós e a família (representados como deuses). Grécia antiga: só os soberanos. Renascimento italiano: o retrato virou gênero popular, usado para nobres e aristocratas, com proporção, simetria e perspectiva.",chk:["Acertei Egito (faraós/família) e Grécia (soberanos)?","Falei que no Renascimento o retrato se popularizou (nobres/aristocratas)?"]},
+   {tag:"apl",q:"Se um colega disser que a Mona Lisa foi pintada por Albrecht Dürer, como você o corrigiria usando o livro?",modelo:"A Mona Lisa foi pintada por Leonardo da Vinci, no Renascimento italiano; é o retrato mais famoso do período. Dürer foi outro artista renascentista, mas fora da Itália (alemão).",chk:["Disse que a Mona Lisa é de Leonardo da Vinci?","Situei a obra no Renascimento italiano?"]}
+  ]
+ },
+ {
+  porto:"Sala 5 · Capítulo 7", emoji:"🏛️", u:"u7",
+  titulo:"O Renascimento, por dentro",
+  texto:[
+   "O <span class='destaque'>Renascimento</span> foi um período artístico e cultural que surgiu na Europa <b>entre os séculos XIV e XVII</b>. Foi uma época de <b>redescoberta e valorização da cultura clássica greco-romana</b> e marcou a passagem da <b>Idade Média para a Idade Moderna</b>.",
+   "Foi um tempo de florescimento das <b>artes, das ciências, da literatura e da filosofia</b>. A visão dominante era o <span class='destaque'>humanismo</span>, que enfatizava a <b>capacidade e a dignidade do ser humano</b>. O período também impulsionou inovações tecnológicas e descobertas geográficas.",
+   "Na arte, surgiu a noção de <span class='destaque'>perspectiva</span>: um modo de representar a realidade e a beleza na <b>harmonia das proporções</b>, seja na pintura, na escultura ou na arquitetura.",
+   "<div class='olhar'><b>Olhar de prova:</b> algumas das obras mais marcantes do Renascimento estão na <b>Capela Sistina</b>, no Vaticano, com pinturas de vários artistas contemporâneos de Leonardo da Vinci: <b>Rafael Sanzio (1483–1520), Sandro Botticelli (1445–1510) e Michelangelo Buonarroti (1475–1564)</b>.</div>"
+  ],
+  perguntas:[
+   {tag:"conc",q:"Em que período (séculos) aconteceu o Renascimento e qual cultura antiga ele valorizou?",modelo:"O Renascimento aconteceu entre os séculos XIV e XVII e valorizou (redescobriu) a cultura clássica greco-romana.",chk:["Acertei os séculos (XIV a XVII)?","Disse que valorizou a cultura greco-romana (clássica)?"]},
+   {tag:"apl",q:"Explique com as suas palavras o que é a 'perspectiva' que surgiu na arte do Renascimento.",modelo:"É um modo de representar a realidade e a beleza na harmonia das proporções, dando a sensação de profundidade ao desenho, à pintura, à escultura ou à arquitetura.",chk:["Liguei perspectiva a representar a realidade com proporção/profundidade?","Escrevi com as minhas palavras (não copiei o texto)?"]},
+   {tag:"apl",q:"O livro diz que o Renascimento foi marcado pelo 'humanismo'. O que isso valorizava? Dê um exemplo de como isso aparece na arte do período.",modelo:"O humanismo valorizava a capacidade e a dignidade do ser humano. Na arte, isso aparece na valorização da imagem do ser humano (retratos e autorretratos viram os gêneros mais importantes) e na busca por proporção e simetria.",chk:["Expliquei que o humanismo valoriza o ser humano (capacidade/dignidade)?","Dei um exemplo na arte (foco na figura humana, retratos, proporção)?"]}
+  ]
+ },
+ {
+  porto:"Sala 6 · Capítulo 7", emoji:"🪞", u:"u7",
+  titulo:"Os mestres do retrato e do autorretrato",
+  texto:[
+   "Ao longo da história, muitos artistas pintaram retratos e autorretratos. <span class='destaque'>Van Dyck (1599–1641)</span>, artista holandês, fazia retratos cheios de detalhes e precisão e tornou-se o <b>pintor oficial da Corte Real da Inglaterra</b>. Já <span class='destaque'>Pierre-Auguste Renoir (1841–1919)</span>, na segunda metade do século XIX, pintava pessoas em seus ambientes sociais, com <b>luz e brilho</b> (como em 'Rosa e Azul').",
+   "No <b>século XX</b>, <span class='destaque'>Pablo Picasso (1881–1973)</span> rompeu com a pintura realista: em seus retratos, a pessoa podia ser vista de <b>vários ângulos ao mesmo tempo</b>. O <b>autorretrato</b> envolve a interpretação pessoal e o <b>autoconhecimento</b> do artista. Para analisar um autorretrato, olhe a <b>posição do rosto</b> (frente ou perfil), as <b>cores</b>, os <b>materiais</b> e a <b>expressão</b>.",
+   "Grandes autorretratistas: <span class='destaque'>Gustave Courbet (1819–1877)</span>, bem realista; <span class='destaque'>Vincent van Gogh (1853–1890)</span>, de <b>cores intensas e pinceladas espessas</b>, que mostravam seus estados psicológicos; <span class='destaque'>Salvador Dalí (1904–1989)</span>, que buscava se desconectar do real (no 'Autorretrato mole com bacon frito', de 1941, representou-se como bacon com formigas, símbolo de fraqueza); e <span class='destaque'>Lasar Segall (1889–1957)</span>, do movimento <b>modernista</b>, que usou tons terrosos no seu autorretrato. Hoje, a <b>selfie</b> é o autorretrato instantâneo, feito com o celular e compartilhado nas redes.",
+   "<div class='olhar'><b>Conheça o artista:</b> <b>Albrecht Dürer (1471–1528)</b> foi matemático, físico, botânico, zoólogo, desenhista e pintor <b>alemão</b>, nascido em <b>Nuremberg</b>. Foi o principal artista do Renascimento <b>fora da Itália</b> e desenvolveu a técnica da <b>perspectiva</b>; aos 13 anos já pintava com habilidade. <b>Experimentar — Frida Kahlo:</b> depois de um grave acidente, ela ficou acamada; o pai pôs um <b>cavalete e um espelho</b> acima da cama e, olhando-se no espelho, ela começou a pintar a própria imagem.</div>"
+  ],
+  perguntas:[
+   {tag:"conc",q:"Segundo o livro, quais são os quatro aspectos que devemos observar ao analisar um autorretrato?",modelo:"A posição do rosto (de frente ou de perfil), as cores escolhidas, os materiais usados e a expressão do rosto (as emoções).",chk:["Citei a posição do rosto e as cores?","Citei os materiais e a expressão do rosto?"]},
+   {tag:"apl",q:"Ligue cada artista à sua marca registrada: Van Gogh, Dalí e Picasso.",modelo:"Van Gogh: autorretratos de cores intensas e pinceladas espessas, mostrando estados psicológicos. Dalí: imagens distorcidas e surreais, desconectadas do real (bacon frito com formigas). Picasso: pessoa vista de vários ângulos ao mesmo tempo, rompendo com o realismo.",chk:["Acertei a marca de Van Gogh (cores intensas/pinceladas espessas)?","Acertei as de Dalí (surreal/distorcido) e Picasso (vários ângulos)?"]},
+   {tag:"apl",q:"Explique como o acidente de Frida Kahlo acabou ligado aos seus autorretratos.",modelo:"Depois do acidente, Frida ficou muito tempo acamada. O pai colocou um cavalete e um espelho acima da cama; ao se olhar no espelho, ela passou a pintar a própria imagem — por isso fez tantos autorretratos.",chk:["Falei que ela ficou acamada após o acidente?","Falei do espelho/cavalete e de pintar a própria imagem?"]}
+  ]
+ },
+ {
+  porto:"Sala 7 · Capítulo 7", emoji:"🎵", u:"u7",
+  titulo:"Música e emoções",
+  texto:[
+   "A <span class='destaque'>música</span> é um código, uma <b>linguagem universal</b> presente em toda a história da humanidade. Ela provoca <b>emoções</b> que chegam a alterar a nossa fisiologia e também afeta a memória: uma canção triste pode nos deixar melancólicos; uma alegre, animados; uma suave, calmos.",
+   "Para criar uma música, há um conjunto de artistas. Dois papéis são essenciais: o <span class='destaque'>compositor</span>, que <b>escreve a música</b>, e o <span class='destaque'>intérprete</span>, que <b>executa ou canta</b>. Juntos, eles levam a composição ao seu objetivo de expressar emoções.",
+   "Em geral, compositores e músicos criam suas obras inspirados no que toca seus sentimentos: lembranças, a vida pessoal, dificuldades, desejos e sonhos.",
+   "<div class='olhar'><b>Conheça a artista:</b> <b>Maria Gadú</b> (Mayra Corrêa Aygadoux) nasceu em <b>4 de dezembro de 1986, em São Paulo</b>. É cantora, compositora e violonista de música popular. Aos <b>10 anos</b>, numa praia em Ilha Grande (RJ), compôs em cinco minutos a canção <b>'Shimbalaiê'</b>, que virou sucesso aos 24. Ela inventou a palavra 'Shimbalaiê', que significa <b>'um momento de extrema felicidade'</b>.</div>"
+  ],
+  perguntas:[
+   {tag:"conc",q:"Qual é a diferença entre o compositor e o intérprete de uma música?",modelo:"O compositor é quem escreve a música; o intérprete é quem a executa ou canta.",chk:["Disse que o compositor escreve a música?","Disse que o intérprete executa/canta?"]},
+   {tag:"apl",q:"O livro diz que a música 'provoca emoções'. Dê um exemplo de como diferentes tipos de canção podem mexer com quem ouve.",modelo:"Ex.: uma canção triste pode deixar a pessoa melancólica; uma canção alegre pode deixá-la animada; uma canção suave pode transmitir leveza e calma. A música também mexe com a memória.",chk:["Dei pelo menos um exemplo de emoção ligada a um tipo de canção?","O exemplo está de acordo com o livro (triste→melancolia, alegre→animação, suave→calma)?"]},
+   {tag:"apl",q:"Conte a história de 'Shimbalaiê': quem compôs, com que idade e o que a palavra significa.",modelo:"Foi composta por Maria Gadú aos 10 anos, numa praia de Ilha Grande (RJ), em cinco minutos, e virou sucesso aos 24. 'Shimbalaiê' é uma palavra que ela inventou e significa 'um momento de extrema felicidade'.",chk:["Disse que foi Maria Gadú, aos 10 anos?","Disse o significado da palavra (momento de extrema felicidade)?"]}
+  ]
+ }
+];
+
+/* ====== LINHA DO TEMPO (marcos do livro; clique leva à sala) ====== */
+var MARCOS=[
+ {ano:"1452–1519",ev:"Leonardo da Vinci pinta a Mona Lisa (retrato mais famoso do Renascimento)",quem:"Sala 4",b:3,u:"u7"},
+ {ano:"1471–1528",ev:"Albrecht Dürer, artista renascentista alemão (perspectiva, autorretratos)",quem:"Sala 6",b:5,u:"u7"},
+ {ano:"Séc. XIV–XVII",ev:"Renascimento: cultura greco-romana, humanismo, Capela Sistina",quem:"Sala 5",b:4,u:"u7"},
+ {ano:"1599–1641",ev:"Van Dyck, pintor oficial da Corte Real da Inglaterra",quem:"Sala 6",b:5,u:"u7"},
+ {ano:"1819–1877",ev:"Gustave Courbet, autorretratos realistas",quem:"Sala 6",b:5,u:"u7"},
+ {ano:"1841–1919",ev:"Renoir pinta pessoas com luz e brilho (Rosa e Azul)",quem:"Sala 6",b:5,u:"u7"},
+ {ano:"1853–1890",ev:"Van Gogh: autorretratos de cores intensas e pinceladas espessas",quem:"Sala 6",b:5,u:"u7"},
+ {ano:"1881–1973",ev:"Picasso: retratos de vários ângulos ao mesmo tempo",quem:"Sala 6",b:5,u:"u7"},
+ {ano:"1904–1989",ev:"Salvador Dalí: Autorretrato mole com bacon frito (1941)",quem:"Sala 6",b:5,u:"u7"},
+ {ano:"1956",ev:"Nasce Militão dos Santos, artista naïf de Caruaru (PE)",quem:"Sala 2",b:1,u:"u6"},
+ {ano:"1986",ev:"Nasce Maria Gadú; compõe 'Shimbalaiê' aos 10 anos",quem:"Sala 7",b:6,u:"u7"},
+ {ano:"2012",ev:"Militão dos Santos pinta 'Bumba meu boi de São Luís'",quem:"Sala 2",b:1,u:"u6"},
+ {ano:"2017",ev:"Patrícia Helney: 'Festa de São Sebastião na aldeia'",quem:"Sala 2",b:1,u:"u6"}
+];
+function renderTL(){
+  var t=document.getElementById('tl'); var h='';
+  MARCOS.forEach(function(m){ h+='<div class="tl-item '+m.u+'" onclick="irBloco('+m.b+')"><div class="ano">'+m.ano+'</div><div class="ev">'+m.ev+'</div><div class="quem">'+m.quem+'</div></div>'; });
+  t.innerHTML=h;
+}
+function irBloco(i){ var el=document.getElementById('bloco'+i); if(el) el.scrollIntoView({behavior:'smooth',block:'start'}); }
+
+/* ====== ESTADO E PERSISTÊNCIA ====== */
+var CHAVE=KIT+'_leitura_v1';
+var mem={};
+var estado=carregar();
+
+function carregar(){
+  try{ var s=localStorage.getItem(CHAVE); if(s) return JSON.parse(s); }catch(e){ if(mem[CHAVE]) return JSON.parse(mem[CHAVE]); }
+  return {blocos:{}};
+}
+function calcProgresso(){
+  var conf=0, chkPend=0;
+  BLOCOS.forEach(function(bloco,i){
+    var b=estado.blocos[i]; if(!b||!b.conferido) return; conf++;
+    bloco.perguntas.forEach(function(p,j){ var ep=(b.perguntas&&b.perguntas[j])||{chk:{}}; p.chk.forEach(function(pt,k){ if(!ep.chk||!ep.chk[k]) chkPend++; }); });
+  });
+  estado.progresso={conferidos:conf,total:BLOCOS.length,chkPendentes:chkPend};
+  if(conf===BLOCOS.length && chkPend===0){ if(!estado.concluido){ estado.concluido=true; estado.concluidoEm=new Date().toISOString(); } }
+  return estado.progresso;
+}
+function salvar(){
+  calcProgresso();
+  var s=JSON.stringify(estado);
+  try{ localStorage.setItem(CHAVE,s); }catch(e){ mem[CHAVE]=s; }
+  var d=new Date();
+  document.getElementById('salvo').textContent='💾 Salvo às '+d.toLocaleTimeString('pt-BR')+' de '+d.toLocaleDateString('pt-BR');
+  atualizarTrilhaFim();
+}
+function atualizarTrilhaFim(){
+  var p=estado.progresso||calcProgresso();
+  var box=document.getElementById('trilha-fim'), txt=document.getElementById('trilha-fim-txt'), btn=document.getElementById('btn-prox');
+  var h3=box.querySelector('h3');
+  if(estado.concluido||trilhaLiberada()){
+    h3.textContent='✅ Leitura concluída — Quiz destravado!';
+    txt.textContent=estado.concluido?'Você conferiu as 7 salas e respondeu a autoavaliação. Agora teste o que aprendeu.':'Trilha liberada pelos pais.';
+    btn.classList.remove('off');
+  } else {
+    h3.textContent='🔒 Próxima etapa: Quiz';
+    var faltam=p.total-p.conferidos;
+    txt.textContent=faltam>0 ? 'Destrava quando você conferir as '+p.total+' salas (faltam '+faltam+').' : 'Falta responder a autoavaliação Sim/Não de '+p.chkPendentes+' ponto(s) para destravar.';
+    btn.classList.add('off');
+  }
+  marcarNav();
+}
+function estBloco(i){ if(!estado.blocos[i]) estado.blocos[i]={aberto:i===0,conferido:false,perguntas:{}}; return estado.blocos[i]; }
+function estPerg(i,j){ var b=estBloco(i); if(!b.perguntas[j]) b.perguntas[j]={resp:'',warned:false,red:false,tentou:'',chk:{}}; return b.perguntas[j]; }
+
+/* ====== ANTICÓPIA (motor validado — Português 7º, 08/10/2026) ====== */
+function normPal(s){
+  return (s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/<[^>]*>/g,' ').replace(/[^a-z0-9\s]/g,' ').replace(/\s+/g,' ').trim().split(' ').filter(Boolean);
+}
+function maiorRun(aw,bw){
+  var bStr=' '+bw.join(' ')+' ', best=0;
+  for(var i=0;i<aw.length;i++){
+    for(var len=aw.length-i; len>0; len--){
+      var sub=aw.slice(i,i+len).join(' ');
+      if(bStr.indexOf(' '+sub+' ')>=0){ if(len>best)best=len; break; }
+    }
+  }
+  return best;
+}
+function cobertoPorRuns(aw,bw,minRun){
+  var bStr=' '+bw.join(' ')+' ', cov=new Array(aw.length).fill(false);
+  for(var i=0;i<aw.length;i++){
+    for(var len=aw.length-i; len>=minRun; len--){
+      var sub=aw.slice(i,i+len).join(' ');
+      if(bStr.indexOf(' '+sub+' ')>=0){ for(var k=i;k<i+len;k++)cov[k]=true; break; }
+    }
+  }
+  return cov.filter(Boolean).length;
+}
+function ehCopia(resp, textoBloco, pergunta){
+  var a=normPal(resp), src=normPal(textoBloco), q=normPal(pergunta);
+  if(a.length<5) return false;
+  var qStr=' '+q.join(' ')+' ', keep=new Array(a.length).fill(true);
+  for(var i=0;i<a.length;i++){
+    for(var len=a.length-i; len>=4; len--){
+      var sub=a.slice(i,i+len).join(' ');
+      if(qStr.indexOf(' '+sub+' ')>=0){ for(var k=i;k<i+len;k++)keep[k]=false; break; }
+    }
+  }
+  var af=a.filter(function(w,idx){return keep[idx];});
+  if(af.length<5) return false;
+  var run=maiorRun(af,src);
+  var cov=cobertoPorRuns(af,src,5);
+  var ratio=cov/af.length;
+  return run>=8 || ratio>0.6;
+}
+
+/* ====== RENDER ====== */
+function textoPlano(bloco){ return bloco.texto.join(' '); }
+
+function render(){
+  var cont=document.getElementById('blocos'); cont.innerHTML='';
+  BLOCOS.forEach(function(bloco,i){
+    var b=estBloco(i);
+    var div=document.createElement('div'); div.className='bloco '+bloco.u+(b.aberto?'':' travado'); div.id='bloco'+i;
+    var html='<div class="bloco-cab"><div class="num">'+(i+1)+'</div><div><div class="porto">'+bloco.porto+'</div><h3>'+bloco.emoji+' '+bloco.titulo+'</h3></div></div>';
+    if(!b.aberto){
+      html+='<div class="cadeado">🔒 Esta sala acende quando você conferir a sala anterior.</div>';
+      div.innerHTML=html; cont.appendChild(div); return;
+    }
+    html+='<div class="bloco-corpo"><div class="texto">';
+    bloco.texto.forEach(function(p){ html+= (p.indexOf('<div')===0? p : '<p>'+p+'</p>'); });
+    html+='</div>';
+    bloco.perguntas.forEach(function(p,j){
+      var ep=estPerg(i,j);
+      var tagTxt=p.tag==='conc'?'Conceito':'Aplicação';
+      html+='<div class="perg'+(ep.red?' red':'')+'" id="perg'+i+'_'+j+'">';
+      html+='<span class="tag '+p.tag+'">'+tagTxt+'</span>';
+      html+='<label>'+(j+1)+'. '+p.q+'</label>';
+      html+='<textarea id="ta'+i+'_'+j+'" oninput="digitou('+i+','+j+')">'+(ep.resp||'')+'</textarea>';
+      html+='<div class="aviso" id="av'+i+'_'+j+'"></div>';
+      html+='<div class="modelo" id="mod'+i+'_'+j+'"><span class="lab">Resposta-modelo</span><p>'+p.modelo+'</p>';
+      html+='<div class="chk" id="chk'+i+'_'+j+'"></div></div>';
+      html+='</div>';
+    });
+    html+='<button class="conferir" id="conf'+i+'" onclick="conferir('+i+')">✔️ Conferir esta sala</button>';
+    html+='<div class="status-bloco" id="st'+i+'"></div>';
+    if(i<BLOCOS.length-1){ html+='<div class="prox" id="px'+i+'"></div>'; }
+    html+='</div>';
+    div.innerHTML=html;
+    cont.appendChild(div);
+  });
+  BLOCOS.forEach(function(bloco,i){
+    var b=estBloco(i);
+    if(b.aberto && b.conferido){ mostrarConferido(i); }
+    atualizarBotao(i);
+  });
+  atualizarRelatorio();
+  atualizarTrilhaFim();
+}
+
+function digitou(i,j){
+  var ep=estPerg(i,j);
+  ep.resp=document.getElementById('ta'+i+'_'+j).value;
+  if(ep.red){
+    var bloco=BLOCOS[i];
+    if(!ehCopia(ep.resp, textoPlano(bloco), bloco.perguntas[j].q)){
+      ep.red=false;
+      var pd=document.getElementById('perg'+i+'_'+j); if(pd) pd.classList.remove('red');
+      var av=document.getElementById('av'+i+'_'+j); if(av){av.className='aviso'; av.textContent='';}
+    }
+  }
+  atualizarBotao(i);
+  salvar();
+  atualizarRelatorio();
+}
+
+function atualizarBotao(i){
+  var b=estBloco(i); if(!b.aberto) return;
+  var btn=document.getElementById('conf'+i); if(!btn) return;
+  var todas=true;
+  BLOCOS[i].perguntas.forEach(function(p,j){
+    var v=(document.getElementById('ta'+i+'_'+j)||{}).value||estPerg(i,j).resp||'';
+    if(v.trim().length<3) todas=false;
+  });
+  btn.disabled=!todas;
+}
+
+function conferir(i){
+  var bloco=BLOCOS[i], b=estBloco(i);
+  var algumBloqueado=false;
+  bloco.perguntas.forEach(function(p,j){
+    var ep=estPerg(i,j);
+    ep.resp=document.getElementById('ta'+i+'_'+j).value;
+    var av=document.getElementById('av'+i+'_'+j);
+    var copia=ehCopia(ep.resp, textoPlano(bloco), p.q);
+    if(copia){
+      if(!ep.warned){
+        ep.warned=true; ep.tentou=ep.resp;
+        av.className='aviso amarelo';
+        av.innerHTML='✋ Boa parte da sua resposta está igual ao texto. Tente <b>reescrever com as suas palavras</b> — explique como se fosse para um amigo, sem olhar o texto. Pode ficar mais curto e simples: o que vale é ser <b>SEU</b>.';
+        algumBloqueado=true;
+      } else {
+        ep.red=true;
+        av.className='aviso vermelho';
+        av.innerHTML='🔴 Esta resposta continua muito parecida com o texto. Ela foi aceita, mas ficou marcada para revisar. Se reescrever com as suas palavras, a marca some.';
+        document.getElementById('perg'+i+'_'+j).classList.add('red');
+      }
+    } else {
+      ep.red=false;
+      if(av){ av.className='aviso'; av.textContent=''; }
+      var pd=document.getElementById('perg'+i+'_'+j); if(pd) pd.classList.remove('red');
+    }
+  });
+  salvar();
+  if(algumBloqueado){
+    document.getElementById('st'+i).innerHTML='<span style="color:var(--ambar)">✍️ Reescreva as respostas marcadas em amarelo e clique em Conferir de novo.</span>';
+    return;
+  }
+  b.conferido=true;
+  if(i<BLOCOS.length-1){ estBloco(i+1).aberto=true; }
+  salvar();
+  render();
+  var alvo=document.getElementById('bloco'+i);
+  if(alvo) alvo.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function mostrarConferido(i){
+  var bloco=BLOCOS[i];
+  bloco.perguntas.forEach(function(p,j){
+    var ep=estPerg(i,j);
+    var mod=document.getElementById('mod'+i+'_'+j); if(mod) mod.classList.add('show');
+    if(ep.red){ var pd=document.getElementById('perg'+i+'_'+j); if(pd) pd.classList.add('red');
+      var av=document.getElementById('av'+i+'_'+j); if(av){av.className='aviso vermelho'; av.innerHTML='🔴 Resposta marcada para revisar (muito parecida com o texto). Reescreva com as suas palavras para tirar a marca.';}
+    }
+    var chk=document.getElementById('chk'+i+'_'+j); if(chk){
+      var h='<b style="font-size:.8rem;color:#8fe0b4">Confira você: a sua resposta…</b>';
+      p.chk.forEach(function(pt,k){
+        var val=ep.chk[k]||'';
+        h+='<div class="item"><span>'+pt+'</span><span class="simnao">'
+         +'<button class="sim'+(val==='sim'?' ativo':'')+'" onclick="marcarChk('+i+','+j+','+k+',\'sim\')">Sim</button>'
+         +'<button class="nao'+(val==='nao'?' ativo':'')+'" onclick="marcarChk('+i+','+j+','+k+',\'nao\')">Não</button>'
+         +'</span></div>';
+      });
+      chk.innerHTML=h;
+    }
+  });
+  atualizarStatusBloco(i);
+  var btn=document.getElementById('conf'+i); if(btn){ btn.textContent='✔️ Sala conferida'; btn.disabled=true; }
+  if(i<BLOCOS.length-1){
+    var px=document.getElementById('px'+i);
+    if(px) px.innerHTML='<a href="#bloco'+(i+1)+'" onclick="irBloco('+(i+1)+');return false;">➡️ Ir para a próxima sala</a>';
+  }
+}
+
+function marcarChk(i,j,k,val){
+  var ep=estPerg(i,j); ep.chk[k]=val;
+  salvar(); mostrarConferido(i); atualizarStatusBloco(i); atualizarRelatorio();
+}
+
+function statusPergunta(i,j){
+  var ep=estPerg(i,j), p=BLOCOS[i].perguntas[j];
+  if(ep.red) return 'revisar';
+  var temNao=false, todasResp=true;
+  p.chk.forEach(function(pt,k){ if(ep.chk[k]==='nao') temNao=true; if(!ep.chk[k]) todasResp=false; });
+  if(temNao) return 'revisar';
+  if(!todasResp) return 'pendente';
+  return 'ok';
+}
+function atualizarStatusBloco(i){
+  var st=document.getElementById('st'+i); if(!st) return;
+  var revisar=false, pendente=false;
+  BLOCOS[i].perguntas.forEach(function(p,j){ var s=statusPergunta(i,j); if(s==='revisar')revisar=true; if(s==='pendente')pendente=true; });
+  if(revisar) st.innerHTML='<span style="color:#ffb3b3">🔁 Esta sala tem pontos para revisar.</span>';
+  else if(pendente) st.innerHTML='<span style="color:var(--ambar)">📝 Responda a autoavaliação (Sim/Não) de cada pergunta.</span>';
+  else st.innerHTML='<span style="color:#8fe0b4">✅ Sala concluída com sucesso!</span>';
+  atualizarRelatorio();
+}
+
+function atualizarRelatorio(){
+  var lista=[], totalConf=0, totalRed=0, totalNao=0;
+  BLOCOS.forEach(function(bloco,i){
+    var b=estBloco(i); if(!b.conferido) return; totalConf++;
+    bloco.perguntas.forEach(function(p,j){
+      var ep=estPerg(i,j);
+      if(ep.red){ totalRed++; lista.push('Sala '+(i+1)+' ('+bloco.titulo+'): pergunta '+(j+1)+' — resposta muito parecida com o texto.'); }
+      p.chk.forEach(function(pt,k){ if(ep.chk[k]==='nao'){ totalNao++; lista.push('Sala '+(i+1)+' ('+bloco.titulo+'): revisar — "'+pt+'"'); } });
+    });
+  });
+  var rev=document.getElementById('revisar'), rl=document.getElementById('revisar-lista');
+  if(lista.length){ rev.style.display='block'; rl.innerHTML=lista.map(function(x){return '<li>'+x+'</li>';}).join(''); }
+  else { rev.style.display='none'; rl.innerHTML=''; }
+  var rc=document.getElementById('rel-conteudo');
+  rc.innerHTML='<b>Salas conferidas:</b> '+totalConf+' de '+BLOCOS.length+'.<br>'
+    +'<b>Respostas marcadas (muito parecidas com o texto):</b> '+totalRed+'.<br>'
+    +'<b>Pontos marcados como "Não" na autoavaliação:</b> '+totalNao+'.<br>'
+    +(lista.length? '<span style="color:#ffb3b3">Há '+lista.length+' ponto(s) para revisar (lista acima).</span>' : '<span style="color:#8fe0b4">Sem pontos pendentes para revisar. 👏</span>');
+}
+
+/* ====== EXPORTAR / IMPORTAR / ZERAR ====== */
+function exportar(){
+  var dados=JSON.stringify(estado,null,2);
+  var blob=new Blob([dados],{type:'application/json'});
+  var a=document.createElement('a'); a.href=URL.createObjectURL(blob);
+  a.download='leitura-guiada_galeria-meia-luz.json'; a.click();
+}
+function importar(ev){
+  var f=ev.target.files[0]; if(!f) return;
+  var r=new FileReader();
+  r.onload=function(){ try{ estado=JSON.parse(r.result); salvar(); render(); mostrarModal('✅ Progresso importado!',false); }catch(e){ mostrarModal('❌ Arquivo inválido.',false); } };
+  r.readAsText(f);
+}
+var acaoZerar=null;
+function pedirZerar(){ acaoZerar=true; mostrarModal('Tem certeza que quer apagar TODO o progresso desta leitura? (O Quiz continua destravado se já tiver sido destravado.)',true); }
+function mostrarModal(txt,confirmar){
+  document.getElementById('modal-txt').innerHTML=txt;
+  document.getElementById('modal').classList.add('show');
+  document.getElementById('modal-cancel').style.display=confirmar?'inline-block':'none';
+  document.getElementById('modal-ok').textContent=confirmar?'Sim, apagar':'Ok';
+  document.getElementById('modal-ok').onclick=function(){ if(confirmar && acaoZerar){ var c=estado.concluido, ce=estado.concluidoEm; estado={blocos:{}}; if(c){estado.concluido=true; estado.concluidoEm=ce;} salvar(); render(); } acaoZerar=null; fecharModal(); };
+}
+function fecharModal(){ document.getElementById('modal').classList.remove('show'); }
+
+renderTL();
+render();
+</script>
+</body>
+</html>

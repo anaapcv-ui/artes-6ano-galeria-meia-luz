@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simulado · Galeria da Meia-Luz · Arte 6º</title>
+<style>
+  :root{--palco:#141019;--palco2:#1e1826;--aco:#2e2838;--aco2:#403850;--ambar:#e8b84b;--magenta:#ff4d8d;--ciano:#35d0e0;--verde:#3ddc84;--vermelho:#e0403f;--texto:#efeaf2;--cinza:#9a94a8}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:radial-gradient(1100px 480px at 50% -10%,#0b1a3a,#141019 60%),var(--palco);color:var(--texto);line-height:1.6;padding-bottom:60px}
+  header{background:linear-gradient(120deg,#0b1a3a,#10264f);padding:26px 18px;text-align:center;box-shadow:0 4px 18px rgba(0,0,0,.5);border-bottom:6px solid var(--vermelho)}
+  header .selo{font-size:.78rem;letter-spacing:2px;color:#c9d6f5;text-transform:uppercase}
+  header h1{font-size:1.5rem;margin:6px 0 2px}
+  header p{color:#dbe4fa;font-size:.92rem}
+  .wrap{max-width:820px;margin:0 auto;padding:16px}
+  .barra-nav{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:16px 0}
+  .barra-nav a{background:var(--palco2);color:var(--texto);text-decoration:none;padding:7px 12px;border-radius:20px;font-size:.85rem;border:1px solid var(--aco)}
+  .barra-nav a.on{background:var(--vermelho);color:#fff;font-weight:bold}
+  .intro{background:var(--palco2);border:1px solid var(--aco);border-radius:14px;padding:16px;margin-bottom:16px}
+  .intro h2{color:#ff8a89;font-size:1.1rem;margin-bottom:8px}
+  .painel{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;background:var(--palco2);border:1px solid var(--aco);border-radius:12px;padding:10px 14px;margin-bottom:16px;font-size:.85rem}
+  .painel .btns{display:flex;gap:6px;flex-wrap:wrap}
+  button{cursor:pointer;font-family:inherit}
+  .mini{background:var(--palco);color:var(--texto);border:1px solid var(--aco2);border-radius:8px;padding:6px 10px;font-size:.8rem}
+  .codigo{background:linear-gradient(120deg,#163a2a,#1b4d36);border:2px solid var(--verde);border-radius:14px;padding:16px;text-align:center;margin-bottom:16px;display:none}
+  .codigo.show{display:block}
+  .codigo .cod{font-size:1.8rem;font-weight:bold;letter-spacing:3px;color:#8fe0b4;margin:6px 0}
+  .progresso{height:10px;background:var(--aco);border-radius:6px;overflow:hidden;margin-bottom:16px}
+  .progresso div{height:100%;background:var(--vermelho);width:0;transition:width .3s}
+  .q{background:var(--palco2);border:1px solid var(--aco);border-radius:16px;padding:16px;margin-bottom:14px}
+  .q .num{color:#ff8a89;font-weight:bold;font-size:.8rem;letter-spacing:1px;text-transform:uppercase}
+  .q .tipo{float:right;font-size:.7rem;color:#fff;border-radius:10px;padding:2px 8px;background:#2a3a5a}
+  .q .tipo.rom{background:#1f5a4a}
+  .q h3{font-size:1rem;margin:6px 0 10px;font-weight:600}
+  .afirm{background:#1b1626;border-left:3px solid var(--aco2);padding:8px 12px;margin:6px 0;border-radius:0 8px 8px 0;font-size:.93rem}
+  .afirm.ok{border-left-color:var(--verde)}.afirm.no{border-left-color:#777;color:#aaa}
+  .alt{display:block;background:#1b1626;border:1px solid var(--aco2);border-radius:10px;padding:10px 12px;margin:6px 0;cursor:pointer}
+  .alt:hover{border-color:#ff8a89}
+  .alt input{margin-right:8px}
+  .alt.sel{border-color:#ff8a89;background:#2a1620}
+  .alt.certa{border-color:var(--verde);background:#0e2b1f}
+  .alt.errada{border-color:#555;background:#1c1c22;color:#aaa}
+  .alt.marcada-errada{border-color:var(--vermelho);background:#3a1414}
+  .exp{margin-top:8px;font-size:.88rem;padding:8px 10px;border-radius:8px;background:#1b1626;border-left:3px solid var(--ambar);display:none}
+  .exp.show{display:block}
+  .enviar{width:100%;background:var(--vermelho);color:#fff;border:none;border-radius:12px;padding:14px;font-size:1.05rem;font-weight:bold;margin:10px 0}
+  .enviar:disabled{background:#2a2636;color:#6f6a7c;cursor:not-allowed}
+  .gab{background:var(--palco2);border:1px dashed var(--ciano);border-radius:14px;padding:16px;margin:16px 0;display:none}
+  .gab.show{display:block}
+  .gab input{padding:9px;border-radius:8px;border:1px solid var(--aco2);background:#0e0b14;color:var(--texto);font-size:1rem;width:180px;text-transform:uppercase}
+  .gab button{background:var(--ciano);color:#04232a;border:none;border-radius:8px;padding:9px 14px;font-weight:bold;margin-left:6px}
+  .gab .msg{margin-top:8px;font-size:.9rem}
+  .fim{background:linear-gradient(120deg,#1b2a1f,#163a2a);border:2px solid var(--verde);border-radius:16px;padding:18px;margin-top:18px;text-align:center}
+  .fim h3{color:#8fe0b4;margin-bottom:8px}
+  .fim a{display:inline-block;margin-top:8px;background:var(--verde);color:#04231a;text-decoration:none;font-weight:bold;padding:11px 20px;border-radius:10px}
+  .modal-bg{display:none;position:fixed;inset:0;background:rgba(5,4,8,.96);z-index:50;align-items:center;justify-content:center;padding:16px}
+  .modal-bg.show{display:flex}
+  .modal{background:var(--palco2);border:1px solid var(--ciano);border-radius:14px;padding:22px;max-width:440px;text-align:center}
+  .modal p{margin-bottom:14px}
+  .modal .big{font-size:2.2rem}
+  .modal a,.modal button{display:inline-block;background:var(--ciano);color:#04232a;border:none;border-radius:8px;padding:10px 18px;font-weight:bold;text-decoration:none}
+  .rodape{text-align:center;color:var(--cinza);font-size:.8rem;margin-top:24px}
+</style>
+</head>
+<body>
+<header>
+  <div class="selo">Galeria da Meia-Luz · Arte 6º ano · CCF</div>
+  <h1>📝 Simulado</h1>
+  <p>15 questões no estilo da prova · múltipla escolha e números romanos · Código SIM</p>
+</header>
+
+<div class="wrap">
+  <nav class="barra-nav" id="nav">
+    <a href="leitura-guiada.html">📖 Leitura Guiada</a>
+    <a href="quiz.html">🎯 Quiz</a>
+    <a href="resumo.html">🗺️ Resumo</a>
+    <a class="on" href="simulado.html">📝 Simulado</a>
+    <a href="index.html">🏠 Início</a>
+  </nav>
+
+  <div class="codigo" id="codigo"><div>Seu código de liberação</div><div class="cod" id="cod"></div><div id="codtxt"></div></div>
+
+  <div class="intro">
+    <h2>📝 Valendo!</h2>
+    <p>Faça como se fosse a prova: <b>15 questões</b>, todas obrigatórias. Há questões de <b>múltipla escolha</b> e <b>3 de números romanos</b> (leia as afirmativas I, II, III e IV e escolha a alternativa correta). Depois de enviar, as respostas travam e sai o código <b>SIM</b>.</p>
+  </div>
+
+  <div class="painel">
+    <span id="salvo">💾 Progresso salvo automaticamente.</span>
+    <div class="btns">
+      <button class="mini" onclick="exportar()">📥 Exportar</button>
+      <button class="mini" onclick="document.getElementById('imp').click()">📤 Importar</button>
+      <input type="file" id="imp" accept="application/json" style="display:none" onchange="importar(event)">
+      <button class="mini" onclick="pedirZerar()">🗑️ Zerar tudo</button>
+    </div>
+  </div>
+
+  <div class="progresso"><div id="barra"></div></div>
+  <div id="questoes"></div>
+  <button class="enviar" id="btn-enviar" onclick="enviar()" disabled>📨 Enviar simulado (responda todas)</button>
+
+  <div class="gab" id="gab">
+    <b>🔑 Gabarito comentado:</b> digite o código SIM que apareceu no topo.<br>
+    <input id="gab-in" placeholder="SIM-XX-YY"><button onclick="abrirGab()">Ver gabarito</button>
+    <div class="msg" id="gab-msg"></div>
+  </div>
+
+  <div class="fim" id="fim" style="display:none">
+    <h3>🏁 Trilha completa!</h3>
+    <p>Você percorreu os quatro materiais na ordem. Agora tudo fica aberto para revisar quantas vezes quiser até a prova.</p>
+    <a href="index.html">🏠 Voltar ao início</a>
+  </div>
+
+  <div class="rodape">Feito com carinho para o jovem aprendiz. 🖼️ Boa prova!</div>
+</div>
+
+<div class="modal-bg" id="lock">
+  <div class="modal">
+    <div class="big">🔒</div>
+    <p><b>Esta etapa ainda está trancada.</b></p>
+    <p id="lock-txt">Para abrir o Simulado, leia o Resumo até o fim.</p>
+    <a href="index.html">Voltar ao início</a>
+  </div>
+</div>
+<div class="modal-bg" id="modal" style="background:rgba(0,0,0,.75)">
+  <div class="modal">
+    <p id="modal-txt"></p>
+    <button onclick="fecharModal()" id="modal-ok">Ok</button>
+    <button class="mini" onclick="fecharModal()" id="modal-cancel" style="display:none;margin-left:8px">Cancelar</button>
+  </div>
+</div>
+
+<script>
+/* ====== TRILHA COM CADEADOS (módulo comum do kit) ====== */
+var KIT='galeria_meialuz';
+var TRILHA=[
+ {id:'leitura', chave:KIT+'_leitura_v1', nome:'Leitura Guiada', arquivo:'leitura-guiada.html', emoji:'📖'},
+ {id:'quiz', chave:KIT+'_quiz_v1', nome:'Quiz', arquivo:'quiz.html', emoji:'🎯'},
+ {id:'resumo', chave:KIT+'_resumo_v1', nome:'Resumo', arquivo:'resumo.html', emoji:'🗺️'},
+ {id:'simulado', chave:KIT+'_simulado_v1', nome:'Simulado', arquivo:'simulado.html', emoji:'📝'}
+];
+function lerJSON(k){ try{ var s=localStorage.getItem(k); return s?JSON.parse(s):null; }catch(e){ return null; } }
+function trilhaLiberada(){ var t=lerJSON(KIT+'_trilha_v1'); return !!(t&&t.liberadoPelosPais); }
+function etapaConcluida(id){ var e=TRILHA.filter(function(t){return t.id===id;})[0]; var d=lerJSON(e.chave); return !!(d&&d.concluido); }
+function podeAbrir(id){ var idx=TRILHA.map(function(t){return t.id;}).indexOf(id); if(idx<=0||trilhaLiberada()) return true; return etapaConcluida(TRILHA[idx-1].id); }
+function checarTrava(){
+  if(podeAbrir('simulado')) return true;
+  var txt='Para abrir o Simulado, leia o Resumo até o fim e clique em "Li o resumo até o fim".';
+  if(!etapaConcluida('quiz')) txt='Para abrir o Simulado, envie o Quiz e leia o Resumo até o fim.';
+  if(!etapaConcluida('leitura')) txt='Para abrir o Simulado, conclua a Leitura Guiada, envie o Quiz e leia o Resumo até o fim.';
+  document.getElementById('lock-txt').textContent=txt;
+  document.getElementById('lock').classList.add('show');
+  document.querySelector('.wrap').style.filter='blur(6px)';
+  return false;
+}
+
+/* ====== QUESTÕES (conteúdo do livro Callis Arte 6, Caps 6 e 7) — correta guardada pelo id ====== */
+var Q=[
+ {tipo:"mc",p:"O livro afirma que o folclore é importante porque:",alts:[
+  {id:"a",t:"preserva a memória do povo e as tradições.",ok:true,e:"O folclore guarda os costumes, danças, lendas e festejos, mantendo viva a memória e a cultura popular."},
+  {id:"b",t:"foi criado por artistas famosos e premiados.",e:"O folclore tem origem anônima, sem autor conhecido."},
+  {id:"c",t:"só existe nas grandes cidades.",e:"Ele ocorre de norte a sul do país, em todas as regiões."},
+  {id:"d",t:"substitui a história escrita nos livros.",e:"O livro não diz isso; o folclore preserva a memória, não substitui a história."}]},
+ {tipo:"mc",p:"É um exemplo de Patrimônio Cultural MATERIAL:",alts:[
+  {id:"a",t:"um monumento ou edifício.",ok:true,e:"Patrimônio material é o que se pode tocar: monumentos e edifícios."},
+  {id:"b",t:"uma dança folclórica.",e:"Dança é tradição = patrimônio imaterial."},
+  {id:"c",t:"o teatro de mamulengos.",e:"O teatro de mamulengos é patrimônio imaterial."},
+  {id:"d",t:"a receita de uma festa popular.",e:"Saberes e modos de fazer são patrimônio imaterial."}]},
+ {tipo:"mc",p:"São características da arte naïf, segundo o livro:",alts:[
+  {id:"a",t:"cores fortes, traços simples e ausência de perspectiva.",ok:true,e:"O artista naïf pinta de forma livre e espontânea, com cores fortes e sem se prender à perspectiva."},
+  {id:"b",t:"tons escuros e representação realista perfeita.",e:"É o contrário: cores fortes e estilo espontâneo, sem rigor realista."},
+  {id:"c",t:"uso rigoroso da perspectiva e da simetria.",e:"Perspectiva e simetria marcam o Renascimento, não a arte naïf."},
+  {id:"d",t:"apenas esculturas em mármore.",e:"A arte naïf aparece sobretudo em telas e no artesanato."}]},
+ {tipo:"mc",p:"A artista Patrícia Helney, citada no livro, é um exemplo de:",alts:[
+  {id:"a",t:"artista naïf, que pintou 'Festa de São Sebastião na aldeia'.",ok:true,e:"Ela é apresentada como artista naïf, com uma obra sobre festa popular."},
+  {id:"b",t:"pintora do Renascimento italiano.",e:"O Renascimento é assunto do Capítulo 7; Patrícia Helney é contemporânea."},
+  {id:"c",t:"cantora de música popular.",e:"A cantora citada no livro é Maria Gadú."},
+  {id:"d",t:"mestra de teatro de mamulengos.",e:"Ela é pintora naïf, não mamulengueira."}]},
+ {tipo:"mc",p:"No teatro de mamulengos, é correto afirmar que:",alts:[
+  {id:"a",t:"o improviso é constante e os mestres criam histórias na hora.",ok:true,e:"Os artistas não seguem texto fixo: inventam piadas, brincadeiras e correria entre os bonecos."},
+  {id:"b",t:"os atores seguem sempre um texto decorado palavra por palavra.",e:"O livro destaca justamente o improviso."},
+  {id:"c",t:"o público vê os atores, e não os bonecos.",e:"É o contrário: o público vê apenas os bonecos em cena."},
+  {id:"d",t:"é uma tradição recente, surgida na internet.",e:"É apreciado no Brasil desde a época colonial."}]},
+ {tipo:"mc",p:"O Teatro de Bonecos Popular do Nordeste foi reconhecido como bem cultural imaterial pelo:",alts:[
+  {id:"a",t:"Iphan (Instituto do Patrimônio Histórico e Artístico Nacional).",ok:true,e:"O Iphan o incluiu no Livro de Registro das Formas de Expressão."},
+  {id:"b",t:"Ines (Instituto Nacional de Educação de Surdos).",e:"O Ines é onde Militão dos Santos estudou; não reconhece patrimônios."},
+  {id:"c",t:"IBGE.",e:"O IBGE faz o censo da população, não o reconhecimento de patrimônios."},
+  {id:"d",t:"Museu do Louvre.",e:"O Louvre é um museu em Paris, sem relação com o reconhecimento."}]},
+ {tipo:"mc",p:"No Egito antigo, segundo o livro, quem posava para retratos eram:",alts:[
+  {id:"a",t:"apenas os faraós e a sua família, representados como deuses.",ok:true,e:"No Egito antigo, o retrato era restrito aos faraós e à família, ligados aos deuses."},
+  {id:"b",t:"todas as pessoas do povo.",e:"Era um privilégio restrito, não aberto a todos."},
+  {id:"c",t:"somente as crianças.",e:"O livro não diz isso."},
+  {id:"d",t:"os artistas estrangeiros.",e:"Eram os faraós e a família, não estrangeiros."}]},
+ {tipo:"mc",p:"Na Grécia antiga, ser retratado era um privilégio restrito:",alts:[
+  {id:"a",t:"aos soberanos.",ok:true,e:"Na Grécia antiga, só os soberanos tinham o privilégio de ser retratados."},
+  {id:"b",t:"aos comerciantes.",e:"O livro cita os soberanos, não os comerciantes."},
+  {id:"c",t:"a qualquer cidadão.",e:"Era restrito, não aberto a qualquer um."},
+  {id:"d",t:"aos atletas olímpicos.",e:"O livro fala dos soberanos."}]},
+ {tipo:"mc",p:"As pinturas da Capela Sistina, citadas no livro, foram feitas por artistas renascentistas como:",alts:[
+  {id:"a",t:"Rafael Sanzio, Sandro Botticelli e Michelangelo.",ok:true,e:"Todos contemporâneos de Leonardo da Vinci, no Renascimento."},
+  {id:"b",t:"Van Gogh, Dalí e Picasso.",e:"Esses são artistas dos séculos XIX e XX, não da Capela Sistina."},
+  {id:"c",t:"Militão dos Santos e Patrícia Helney.",e:"São artistas naïf brasileiros, do Capítulo 6."},
+  {id:"d",t:"Maria Gadú e Lasar Segall.",e:"Maria Gadú é cantora; Lasar Segall é modernista, não da Capela Sistina."}]},
+ {tipo:"mc",p:"No 'Autorretrato mole com bacon frito' (1941), Salvador Dalí:",alts:[
+  {id:"a",t:"debochou de si mesmo, representando-se como um bacon frito, com formigas simbolizando a fraqueza.",ok:true,e:"Dalí buscava se desconectar do real, usando símbolos e imagens distorcidas (surrealismo)."},
+  {id:"b",t:"pintou um retrato realista e sério do próprio rosto.",e:"Foi justamente o oposto: uma imagem distorcida e debochada."},
+  {id:"c",t:"copiou a Mona Lisa de Leonardo da Vinci.",e:"Não tem relação com a Mona Lisa."},
+  {id:"d",t:"usou apenas tons terrosos, como Lasar Segall.",e:"Os tons terrosos são do autorretrato de Lasar Segall."}]},
+ {tipo:"mc",p:"Por que Frida Kahlo começou a fazer autorretratos?",alts:[
+  {id:"a",t:"Porque, acamada após um acidente, passou a se olhar num espelho posto sobre a cama e a pintar a própria imagem.",ok:true,e:"O pai colocou um cavalete e um espelho acima da cama; ao se olhar, ela pintava a si mesma."},
+  {id:"b",t:"Porque era a pintora oficial da Corte da Inglaterra.",e:"Quem foi pintor oficial da Corte da Inglaterra foi Van Dyck."},
+  {id:"c",t:"Porque queria retratar apenas paisagens.",e:"Ela pintava a própria imagem, não paisagens."},
+  {id:"d",t:"Porque inventou a técnica da perspectiva.",e:"A perspectiva é associada a Dürer e ao Renascimento, não a Frida."}]},
+ {tipo:"mc",p:"A palavra 'Shimbalaiê', da canção de Maria Gadú, significa:",alts:[
+  {id:"a",t:"um momento de extrema felicidade.",ok:true,e:"A palavra foi inventada por ela e significa um momento muito bom, de extrema felicidade."},
+  {id:"b",t:"um tipo de instrumento musical.",e:"Não é instrumento; é uma palavra inventada com um significado de alegria."},
+  {id:"c",t:"uma dança indígena.",e:"Não é dança; é o nome de uma canção."},
+  {id:"d",t:"um estilo de pintura.",e:"Estilo de pintura citado no livro é o naïf; 'Shimbalaiê' é uma canção."}]},
+ {tipo:"rom",p:"Analise as afirmativas sobre a CULTURA POPULAR (Capítulo 6):",itens:[
+  {n:"I",t:"Para ser folclore, a expressão precisa passar de geração em geração e ter origem anônima.",ok:true,e:"Correta: são os dois critérios do livro."},
+  {n:"II",t:"A arte naïf é feita com cores fortes e traços simples, sem perspectiva.",ok:true,e:"Correta: é a descrição do estilo naïf."},
+  {n:"III",t:"O nome 'mamulengo' vem da expressão 'mão molenga'.",ok:true,e:"Correta: refere-se à mão mole que manipula o boneco."},
+  {n:"IV",t:"Patrimônio imaterial são apenas monumentos e edifícios.",e:"Errada: monumentos e edifícios são patrimônio MATERIAL; o imaterial são as tradições."}],
+  alts:[{id:"a",t:"Apenas I, II e III.",ok:true,e:"I, II e III são corretas; só a IV é errada."},{id:"b",t:"Apenas I e IV.",e:"IV é errada e faltam II e III."},{id:"c",t:"Apenas II e IV.",e:"IV é errada."},{id:"d",t:"Todas as afirmativas.",e:"A IV é errada."}]},
+ {tipo:"rom",p:"Analise as afirmativas sobre o RETRATO e o RENASCIMENTO (Capítulo 7):",itens:[
+  {n:"I",t:"No retrato, o artista representa outra pessoa; no autorretrato, representa a si mesmo.",ok:true,e:"Correta: é a definição do livro."},
+  {n:"II",t:"A Mona Lisa foi pintada por Leonardo da Vinci, no Renascimento italiano.",ok:true,e:"Correta: é o retrato mais famoso do período."},
+  {n:"III",t:"O Renascimento valorizou a cultura greco-romana e o humanismo.",ok:true,e:"Correta: redescobriu a cultura clássica e valorizou o ser humano."},
+  {n:"IV",t:"O Renascimento aconteceu no Brasil, no século XX.",e:"Errada: aconteceu na Europa, entre os séculos XIV e XVII."}],
+  alts:[{id:"a",t:"Apenas I, II e III.",ok:true,e:"Só a IV é errada."},{id:"b",t:"Apenas II e IV.",e:"IV é errada; faltam I e III."},{id:"c",t:"Apenas I e IV.",e:"IV é errada."},{id:"d",t:"Todas as afirmativas.",e:"A IV é errada."}]},
+ {tipo:"rom",p:"Analise as afirmativas sobre ARTISTAS e MÚSICA (Capítulo 7):",itens:[
+  {n:"I",t:"Van Gogh fez autorretratos de cores intensas e pinceladas espessas.",ok:true,e:"Correta: suas pinceladas espessas mostravam estados psicológicos."},
+  {n:"II",t:"Albrecht Dürer foi um artista renascentista alemão, ligado à técnica da perspectiva.",ok:true,e:"Correta: foi o principal artista do Renascimento fora da Itália."},
+  {n:"III",t:"O compositor é quem apenas vende os ingressos do show.",e:"Errada: o compositor escreve a música; o intérprete a executa ou canta."},
+  {n:"IV",t:"A selfie é considerada o autorretrato instantâneo dos dias de hoje.",ok:true,e:"Correta: feita com o celular e compartilhada nas redes."}],
+  alts:[{id:"a",t:"Apenas I, II e IV.",ok:true,e:"Só a III é errada."},{id:"b",t:"Apenas I e III.",e:"III é errada; faltam II e IV."},{id:"c",t:"Apenas III e IV.",e:"III é errada."},{id:"d",t:"Todas as afirmativas.",e:"A III é errada."}]}
+];
+
+/* ====== EMBARALHAMENTO COM SEMENTE FIXA (mulberry32) — correta guardada pelo id ====== */
+function mulberry32(a){ return function(){ a|=0; a=a+0x6D2B79F5|0; var t=Math.imul(a^a>>>15,1|a); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; }; }
+var rnd=mulberry32(620261014);
+Q.forEach(function(q){ if(q.alts){ var arr=q.alts.slice(); for(var i=arr.length-1;i>0;i--){ var j=Math.floor(rnd()*(i+1)); var tmp=arr[i]; arr[i]=arr[j]; arr[j]=tmp; } q.ordem=arr; } });
+var OBJ=Q.length;
+
+/* ====== ESTADO ====== */
+var CHAVE=KIT+'_simulado_v1'; var mem={}; var estado=carregar();
+function carregar(){ try{ var s=localStorage.getItem(CHAVE); if(s) return JSON.parse(s);}catch(e){ if(mem[CHAVE]) return JSON.parse(mem[CHAVE]); } return {resp:{},enviado:false}; }
+function salvar(){ var s=JSON.stringify(estado); try{ localStorage.setItem(CHAVE,s);}catch(e){ mem[CHAVE]=s; } var d=new Date(); document.getElementById('salvo').textContent='💾 Salvo às '+d.toLocaleTimeString('pt-BR')+' de '+d.toLocaleDateString('pt-BR'); }
+var LETRAS='ABCDEFGHJKLMNPQRSTUVWXYZ';
+function gerarCodigo(ac){ var xx=(ac<10?'0':'')+ac; var yy=LETRAS[Math.floor(Math.random()*LETRAS.length)]+LETRAS[Math.floor(Math.random()*LETRAS.length)]; return 'SIM-'+xx+'-'+yy; }
+function respondida(i){ var r=estado.resp[i]; return !(r===undefined||r===null||r===''); }
+function acertou(i){ var q=Q[i], r=estado.resp[i]; var a=q.alts.filter(function(x){return x.id===r;})[0]; return !!(a&&a.ok); }
+
+function render(){
+  var c=document.getElementById('questoes'); var h=''; var G=estado.gabarito;
+  Q.forEach(function(q,i){
+    var tipoTxt={mc:'Múltipla escolha',rom:'Números romanos'}[q.tipo];
+    h+='<div class="q" id="q'+i+'"><span class="tipo '+q.tipo+'">'+tipoTxt+'</span><div class="num">Questão '+(i+1)+' de '+Q.length+'</div><h3>'+q.p+'</h3>';
+    if(q.tipo==='rom'){
+      q.itens.forEach(function(it){ var cls='afirm'+(G?(it.ok?' ok':' no'):''); h+='<div class="'+cls+'">'+it.n+'. '+it.t+(G?'<div class="exp show">'+(it.ok?'✅ ':'❌ ')+it.e+'</div>':'')+'</div>'; });
+    }
+    q.ordem.forEach(function(a,k){
+      var letra='abcd'[k]; var sel=estado.resp[i]===a.id; var cls='alt'+(sel?' sel':'');
+      if(G){ if(a.ok) cls+=' certa'; else if(sel) cls+=' marcada-errada'; else cls+=' errada'; }
+      h+='<label class="'+cls+'"><input type="radio" name="q'+i+'" value="'+a.id+'" '+(sel?'checked':'')+' '+(estado.enviado?'disabled':'')+' onchange="marcar('+i+',\''+a.id+'\')"> <b>'+letra+')</b> '+a.t+(G?'<div class="exp show">'+(a.ok?'✅ ':'')+a.e+'</div>':'')+'</label>';
+    });
+    h+='</div>';
+  });
+  c.innerHTML=h; atualizarBarra(); if(estado.enviado) mostrarEnviado();
+}
+function marcar(i,v){ if(estado.enviado) return; estado.resp[i]=v; salvar(); var q=document.getElementById('q'+i); var labs=q.querySelectorAll('.alt'); for(var k=0;k<labs.length;k++){ labs[k].classList.toggle('sel', labs[k].querySelector('input').value===v); } atualizarBarra(); }
+function atualizarBarra(){ var n=0; Q.forEach(function(q,i){ if(respondida(i)) n++; }); document.getElementById('barra').style.width=(n/Q.length*100)+'%'; var b=document.getElementById('btn-enviar'); if(!estado.enviado){ b.disabled=n<Q.length; b.textContent=n<Q.length?'📨 Enviar simulado ('+n+' de '+Q.length+' respondidas)':'📨 Enviar simulado'; } }
+function enviar(){
+  if(estado.enviado) return;
+  var ac=0; Q.forEach(function(q,i){ if(acertou(i)===true) ac++; });
+  estado.acertos=ac; estado.objetivas=OBJ; estado.codigo=gerarCodigo(ac); estado.enviado=true; estado.concluido=true; estado.concluidoEm=new Date().toISOString();
+  salvar(); render(); window.scrollTo({top:0,behavior:'smooth'});
+}
+function mostrarEnviado(){
+  var b=document.getElementById('btn-enviar'); b.disabled=true; b.textContent='✅ Simulado enviado — respostas travadas';
+  document.getElementById('codigo').classList.add('show'); document.getElementById('cod').textContent=estado.codigo;
+  document.getElementById('codtxt').textContent='Anote este código para os pais. Ele abre o gabarito comentado.';
+  document.getElementById('gab').classList.add('show'); document.getElementById('fim').style.display='block';
+}
+function abrirGab(){ var v=document.getElementById('gab-in').value.trim().toUpperCase(); var m=document.getElementById('gab-msg'); if(v===estado.codigo||v==='PAIS-77'){ estado.gabarito=true; salvar(); render(); m.innerHTML='<span style="color:#8fe0b4">Gabarito liberado: '+estado.acertos+' acertos de '+OBJ+' questões.</span>'; } else { m.innerHTML='<span style="color:#ffb3b3">Código incorreto.</span>'; } }
+function exportar(){ var blob=new Blob([JSON.stringify(estado,null,2)],{type:'application/json'}); var a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='simulado_galeria-meia-luz.json'; a.click(); }
+function importar(ev){ var f=ev.target.files[0]; if(!f) return; var r=new FileReader(); r.onload=function(){ try{ estado=JSON.parse(r.result); salvar(); render(); mostrarModal('✅ Progresso importado!',false);}catch(e){ mostrarModal('❌ Arquivo inválido.',false);} }; r.readAsText(f); }
+var acaoZerar=null;
+function pedirZerar(){ acaoZerar=true; mostrarModal('Apagar as respostas deste Simulado? (Se ele já foi enviado, o código e a conclusão são mantidos.)',true); }
+function mostrarModal(txt,confirmar){ document.getElementById('modal-txt').innerHTML=txt; document.getElementById('modal').classList.add('show'); document.getElementById('modal-cancel').style.display=confirmar?'inline-block':'none'; document.getElementById('modal-ok').textContent=confirmar?'Sim, apagar':'Ok';
+  document.getElementById('modal-ok').onclick=function(){ if(confirmar&&acaoZerar){ if(!estado.enviado){ estado={resp:{},enviado:false}; salvar(); render(); } else { mostrarModal('O Simulado já foi enviado: as respostas ficam travadas. Para refazer do zero, use "Zerar o kit inteiro" no Início.',false); acaoZerar=null; return; } } acaoZerar=null; fecharModal(); }; }
+function fecharModal(){ document.getElementById('modal').classList.remove('show'); }
+
+if(checarTrava()){ render(); }
+</script>
+</body>
+</html>

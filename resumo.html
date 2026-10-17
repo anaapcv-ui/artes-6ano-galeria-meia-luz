@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resumo · Galeria da Meia-Luz · Arte 6º</title>
+<style>
+  :root{--palco:#141019;--palco2:#1e1826;--aco:#2e2838;--aco2:#403850;--ambar:#e8b84b;--magenta:#ff4d8d;--ciano:#35d0e0;--verde:#3ddc84;--vermelho:#ff5d5d;--texto:#efeaf2;--cinza:#9a94a8}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:radial-gradient(1100px 480px at 50% -10%,#2a1a0e,#141019 60%),var(--palco);color:var(--texto);line-height:1.6;padding-bottom:60px}
+  header{background:linear-gradient(120deg,#3a2308,#5a3a10);padding:26px 18px;text-align:center;box-shadow:0 4px 18px rgba(0,0,0,.5);border-bottom:4px solid var(--ambar)}
+  header .selo{font-size:.78rem;letter-spacing:2px;color:#ffe3b3;text-transform:uppercase}
+  header h1{font-size:1.5rem;margin:6px 0 2px}
+  header p{color:#f5e2c4;font-size:.92rem}
+  .wrap{max-width:900px;margin:0 auto;padding:16px}
+  .barra-nav{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:16px 0}
+  .barra-nav a{background:var(--palco2);color:var(--texto);text-decoration:none;padding:7px 12px;border-radius:20px;font-size:.85rem;border:1px solid var(--aco)}
+  .barra-nav a.on{background:var(--ambar);color:#2a1600;font-weight:bold}
+  .barra-nav a.lock{opacity:.5}
+  .intro{background:var(--palco2);border:1px solid var(--aco);border-radius:14px;padding:16px;margin-bottom:16px}
+  .intro h2{color:var(--ambar);font-size:1.1rem;margin-bottom:8px}
+  .sec{margin:26px 0 12px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .sec h2{font-size:1.25rem}
+  .sec .pill{font-size:.7rem;letter-spacing:1px;text-transform:uppercase;padding:3px 10px;border-radius:12px;background:var(--ambar);color:#2a1600;font-weight:bold}
+  .sec .pill.u7{background:var(--ciano);color:#04232a}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+  .card{background:var(--palco2);border:1px solid var(--aco);border-radius:14px;padding:14px;border-top:4px solid var(--ambar)}
+  .card.u7{border-top-color:var(--ciano)}
+  .card h3{font-size:1rem;margin-bottom:8px}
+  .card ul{margin-left:18px}
+  .card li{margin-bottom:5px;font-size:.93rem}
+  .card b{color:var(--ambar)}
+  .card.u7 b{color:var(--ciano)}
+  .postit{background:#ffe88a;color:#3a2a00;border-radius:4px;padding:12px 14px;font-size:.92rem;box-shadow:3px 4px 10px rgba(0,0,0,.4);transform:rotate(-1deg);margin:12px 0}
+  .postit b{color:#7a4a00}
+  .peg{background:#3a1414;border:2px solid var(--vermelho);border-radius:12px;padding:12px 14px;margin:12px 0;font-size:.92rem}
+  .peg b{color:#ffb3b3}
+  /* flip cards */
+  .flips{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+  .flip{perspective:900px;height:190px;cursor:pointer}
+  .flip .inner{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+  .flip.on .inner{transform:rotateY(180deg)}
+  .flip .face{position:absolute;inset:0;backface-visibility:hidden;border-radius:12px;padding:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;font-size:.88rem}
+  .flip .front{background:linear-gradient(135deg,#2e2038,#1e1826);border:1px solid var(--aco2);font-weight:bold}
+  .flip .front small{display:block;color:var(--cinza);font-weight:normal;font-size:.72rem;margin-top:6px}
+  .flip .back{background:#0e2b1f;border:1px solid var(--verde);transform:rotateY(180deg)}
+  .tl{display:flex;gap:10px;overflow-x:auto;padding:10px 4px}
+  .tl-item{flex:0 0 150px;background:#1b1626;border:1px solid var(--aco2);border-top:4px solid var(--ciano);border-radius:10px;padding:10px;font-size:.82rem}
+  .tl-item .ano{font-weight:bold;color:var(--ciano);font-size:1rem}
+  .tabela{width:100%;border-collapse:collapse;font-size:.88rem;margin-top:8px}
+  .tabela th,.tabela td{border:1px solid var(--aco);padding:7px 9px;text-align:left;vertical-align:top}
+  .tabela th{background:#241a2c}
+  .gloss{columns:2;column-gap:18px}
+  .gloss div{break-inside:avoid;margin-bottom:8px;font-size:.9rem}
+  .gloss b{color:var(--ambar)}
+  @media(max-width:600px){.gloss{columns:1}}
+  .fim{background:linear-gradient(120deg,#1b2a1f,#163a2a);border:2px solid var(--verde);border-radius:16px;padding:18px;margin-top:24px;text-align:center}
+  .fim h3{color:#8fe0b4;margin-bottom:8px}
+  .fim button{background:var(--verde);color:#04231a;border:none;border-radius:10px;padding:12px 20px;font-size:1rem;font-weight:bold;margin:6px}
+  .fim button:disabled{background:#2a2636;color:#6f6a7c;cursor:not-allowed}
+  .fim a.btn{display:inline-block;margin:6px;background:var(--ciano);color:#04232a;text-decoration:none;font-weight:bold;padding:12px 20px;border-radius:10px}
+  .fim a.btn.off{background:#2a2636;color:#6f6a7c;pointer-events:none}
+  .painel{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;background:var(--palco2);border:1px solid var(--aco);border-radius:12px;padding:10px 14px;margin-bottom:16px;font-size:.85rem}
+  .mini{background:var(--palco);color:var(--texto);border:1px solid var(--aco2);border-radius:8px;padding:6px 10px;font-size:.8rem;cursor:pointer;font-family:inherit}
+  .modal-bg{display:none;position:fixed;inset:0;background:rgba(5,4,8,.96);z-index:50;align-items:center;justify-content:center;padding:16px}
+  .modal-bg.show{display:flex}
+  .modal{background:var(--palco2);border:1px solid var(--ciano);border-radius:14px;padding:22px;max-width:440px;text-align:center}
+  .modal p{margin-bottom:14px}
+  .modal .big{font-size:2.2rem}
+  .modal a{display:inline-block;background:var(--ciano);color:#04232a;border-radius:8px;padding:10px 18px;font-weight:bold;text-decoration:none}
+  .rodape{text-align:center;color:var(--cinza);font-size:.8rem;margin-top:24px}
+</style>
+</head>
+<body>
+<header>
+  <div class="selo">Galeria da Meia-Luz · Arte 6º ano · CCF</div>
+  <h1>🗺️ Resumo</h1>
+  <p>Tudo que cai, em cards, cartas e post-its · Capítulos 6 e 7</p>
+</header>
+
+<div class="wrap">
+  <nav class="barra-nav" id="nav">
+    <a href="leitura-guiada.html">📖 Leitura Guiada</a>
+    <a href="quiz.html">🎯 Quiz</a>
+    <a class="on" href="resumo.html">🗺️ Resumo</a>
+    <a href="simulado.html" data-etapa="simulado">📝 Simulado</a>
+    <a href="index.html">🏠 Início</a>
+  </nav>
+
+  <div class="intro">
+    <h2>🗺️ Mapa da galeria</h2>
+    <p>Use este resumo para fechar as dúvidas que o Quiz mostrou e para revisar na véspera. Leia até o fim: lá embaixo está o botão <b>"Li o resumo até o fim"</b>, que destrava o <b>📝 Simulado</b>.</p>
+  </div>
+  <div class="painel"><span id="salvo">📏 Rolagem máxima: 0%</span><button class="mini" onclick="exportar()">📥 Exportar</button></div>
+
+  <div class="sec"><span class="pill">Capítulo 6</span><h2>🎉 Cultura popular</h2></div>
+  <div class="grid">
+    <div class="card"><h3>🎉 Folclore</h3><ul>
+      <li><b>Folclore</b> = costumes, danças, lendas, festejos e comemorações do povo; preserva a <b>memória</b> e as tradições.</li>
+      <li>Para ser folclore: <b>passar de geração em geração</b> + <b>origem anônima</b> (ninguém sabe quem criou).</li>
+      <li><b>Bumba meu boi</b>: origem no <b>Maranhão</b>; virou festejo e é <b>Patrimônio Cultural</b>.</li>
+      <li>Exemplos: Frevo, Maracatu, Samba, Cordel, Capoeira, Quadrilhas Juninas.</li></ul></div>
+    <div class="card"><h3>🏛️ Patrimônio Cultural</h3><ul>
+      <li>Representa a <b>identidade</b> de um povo.</li>
+      <li><b>Material</b> = dá para tocar: monumentos, edifícios.</li>
+      <li><b>Imaterial</b> = tradições e modos de vida: danças, festas, saberes (ex.: teatro de mamulengos).</li>
+      <li>Vocabulário: <b>folclorista</b> (quem estuda) e <b>toada</b> (melodia de uma canção).</li></ul></div>
+    <div class="card"><h3>🎨 Arte naïf</h3><ul>
+      <li><b>Naïf</b> = palavra <b>francesa</b>: "natural", "espontâneo", "primitivo".</li>
+      <li>Estilo <b>livre</b>, sem técnicas rígidas; explora <b>cores fortes</b>.</li>
+      <li>Traços <b>simples</b> e <b>sem perspectiva</b>; passa movimento e alegria.</li>
+      <li>Artistas: <b>Patrícia Helney</b> e <b>Militão dos Santos</b> (Caruaru/PE, 1956; superação, surdo).</li></ul></div>
+    <div class="card"><h3>🧤 Teatro de mamulengos</h3><ul>
+      <li><b>Mamulengo</b> = fantoche da cultura popular do Nordeste, especialmente de <b>Pernambuco</b>.</li>
+      <li>Nome vem de <b>"mão molenga"</b> (manipulado pelas mãos, como luva).</li>
+      <li><b>Improviso</b> constante; os <b>mestres</b> "brincam de mamulengo".</li>
+      <li>É <b>Patrimônio imaterial</b>, reconhecido pelo <b>Iphan</b>. Vocabulário: <b>causo</b> (história popular engraçada).</li></ul></div>
+  </div>
+
+  <div class="sec"><span class="pill">Capítulo 6</span><h2>🃏 Cartas da cultura popular (clique para virar)</h2></div>
+  <div class="flips">
+    <div class="flip" onclick="this.classList.toggle('on')"><div class="inner"><div class="face front">Folclore<small>quais os 2 critérios?</small></div><div class="face back"><b>Geração em geração</b> + <b>origem anônima</b>. Ex.: Bumba meu boi (Maranhão), Patrimônio Cultural.</div></div></div>
+    <div class="flip" onclick="this.classList.toggle('on')"><div class="inner"><div class="face front">Patrimônio<small>material × imaterial?</small></div><div class="face back"><b>Material</b> = monumentos e edifícios. <b>Imaterial</b> = tradições e modos de vida (mamulengos, Bumba meu boi).</div></div></div>
+    <div class="flip" onclick="this.classList.toggle('on')"><div class="inner"><div class="face front">Arte naïf<small>o que marca o estilo?</small></div><div class="face back">Palavra <b>francesa</b> (natural/espontâneo/primitivo). <b>Cores fortes</b>, traços simples, <b>sem perspectiva</b>.</div></div></div>
+    <div class="flip" onclick="this.classList.toggle('on')"><div class="inner"><div class="face front">Mamulengo<small>de onde vem o nome?</small></div><div class="face back">De <b>"mão molenga"</b>. Fantoche de <b>Pernambuco</b>, com improviso; Patrimônio imaterial (Iphan).</div></div></div>
+  </div>
+  <div class="postit">📌 <b>Dica de prova:</b> decore pela marca: <b>origem anônima</b> = folclore · <b>cores fortes sem perspectiva</b> = naïf · <b>"mão molenga"</b> = mamulengo · <b>Caruaru + superação</b> = Militão dos Santos.</div>
+
+  <div class="sec"><span class="pill u7">Capítulo 7</span><h2>🖼️ Retratos, autorretratos e o Renascimento</h2></div>
+  <div class="grid">
+    <div class="card u7"><h3>🖼️ Retrato × autorretrato</h3><ul>
+      <li><b>Retrato</b> = o artista representa <b>outra pessoa</b>.</li>
+      <li><b>Autorretrato</b> = o artista representa <b>a si mesmo</b> (envolve autoconhecimento).</li>
+      <li>A <b>selfie</b> é o autorretrato instantâneo de hoje.</li>
+      <li>Analisar autorretrato: <b>posição do rosto, cores, materiais, expressão</b>.</li></ul></div>
+    <div class="card u7"><h3>🕰️ O retrato na história</h3><ul>
+      <li><b>Egito antigo</b>: só <b>faraós e família</b> (como deuses).</li>
+      <li><b>Grécia antiga</b>: só os <b>soberanos</b>.</li>
+      <li><b>Renascimento italiano</b> (séc. XIV–XVI): retrato vira gênero popular; <b>proporção, simetria, perspectiva</b>.</li>
+      <li><b>Mona Lisa</b> = <b>Leonardo da Vinci</b>, retrato mais famoso do Renascimento.</li></ul></div>
+    <div class="card u7"><h3>🏛️ O Renascimento</h3><ul>
+      <li>Europa, séculos <b>XIV a XVII</b>; valoriza a cultura <b>greco-romana</b>.</li>
+      <li>Passagem da <b>Idade Média</b> para a <b>Idade Moderna</b>; visão <b>humanista</b>.</li>
+      <li><b>Perspectiva</b> = representar a realidade na harmonia das proporções.</li>
+      <li><b>Capela Sistina</b>: Rafael Sanzio, Botticelli, Michelangelo.</li></ul></div>
+    <div class="card u7"><h3>🪞 Mestres do (auto)retrato</h3><ul>
+      <li><b>Van Dyck</b>: pintor oficial da Corte da Inglaterra. <b>Renoir</b>: luz e brilho (Rosa e Azul).</li>
+      <li><b>Picasso</b>: vários ângulos ao mesmo tempo. <b>Courbet</b>: realista.</li>
+      <li><b>Van Gogh</b>: cores intensas, pinceladas espessas. <b>Dalí</b>: surreal (bacon frito). <b>Lasar Segall</b>: modernista, tons terrosos.</li>
+      <li><b>Dürer</b>: alemão, Renascimento fora da Itália, perspectiva. <b>Frida Kahlo</b>: espelho sobre a cama → autorretratos.</li></ul></div>
+    <div class="card u7"><h3>🎵 Música e emoções</h3><ul>
+      <li>Música = <b>linguagem universal</b>; provoca emoções e mexe com a memória.</li>
+      <li><b>Compositor</b> escreve; <b>intérprete</b> executa ou canta.</li>
+      <li><b>Maria Gadú</b> (1986, SP): compôs <b>"Shimbalaiê"</b> aos 10 anos = "momento de extrema felicidade".</li></ul></div>
+  </div>
+
+  <div class="sec"><span class="pill u7">Capítulo 7</span><h2>⚖️ Egito × Grécia × Renascimento</h2></div>
+  <table class="tabela">
+    <thead><tr><th>Época</th><th>Quem podia ser retratado</th><th>Detalhe</th></tr></thead>
+    <tbody>
+      <tr><td><b>Egito antigo</b></td><td>Só faraós e a família</td><td>Representados como deuses</td></tr>
+      <tr><td><b>Grécia antiga</b></td><td>Só os soberanos</td><td>Privilégio restrito</td></tr>
+      <tr><td><b>Renascimento italiano</b></td><td>Nobres e aristocratas (gênero popular)</td><td>Proporção, simetria, perspectiva · Mona Lisa (Da Vinci)</td></tr>
+    </tbody>
+  </table>
+  <div class="peg">⚠️ <b>Pegadinha:</b> a Mona Lisa é de <b>Leonardo da Vinci</b> (Renascimento italiano), NÃO de Dürer (alemão) nem de Picasso (século XX).</div>
+
+  <div class="sec"><span class="pill u7">Capítulo 7</span><h2>🕰️ Linha do tempo rápida</h2></div>
+  <div class="tl">
+    <div class="tl-item"><div class="ano">1452–1519</div>Leonardo da Vinci (Mona Lisa)</div>
+    <div class="tl-item"><div class="ano">1471–1528</div>Albrecht Dürer (alemão, perspectiva)</div>
+    <div class="tl-item"><div class="ano">XIV–XVII</div>Renascimento (greco-romano, humanismo)</div>
+    <div class="tl-item"><div class="ano">1599–1641</div>Van Dyck (Corte da Inglaterra)</div>
+    <div class="tl-item"><div class="ano">1841–1919</div>Renoir (luz e brilho)</div>
+    <div class="tl-item"><div class="ano">1853–1890</div>Van Gogh (cores intensas)</div>
+    <div class="tl-item"><div class="ano">1881–1973</div>Picasso (vários ângulos)</div>
+    <div class="tl-item"><div class="ano">1904–1989</div>Dalí (bacon frito, 1941)</div>
+    <div class="tl-item"><div class="ano">1956</div>Nasce Militão dos Santos (naïf)</div>
+    <div class="tl-item"><div class="ano">1986</div>Nasce Maria Gadú (Shimbalaiê)</div>
+    <div class="tl-item"><div class="ano">2012</div>Militão: Bumba meu boi de São Luís</div>
+  </div>
+
+  <div class="sec"><h2>📚 Glossário</h2></div>
+  <div class="gloss">
+    <div><b>Folclore</b> — costumes, danças, lendas e festejos do povo, de origem anônima.</div>
+    <div><b>Folclorista</b> — pessoa que pesquisa as manifestações populares.</div>
+    <div><b>Toada</b> — linha melódica de uma canção.</div>
+    <div><b>Patrimônio material</b> — monumentos e edifícios (dá para tocar).</div>
+    <div><b>Patrimônio imaterial</b> — tradições e modos de vida.</div>
+    <div><b>Naïf</b> — estilo de pintura livre, de cores fortes e traços simples.</div>
+    <div><b>Mamulengo</b> — fantoche nordestino usado no teatro popular.</div>
+    <div><b>Causo</b> — história popular, contada de modo engraçado.</div>
+    <div><b>Iphan</b> — instituto que reconhece e protege o Patrimônio Cultural.</div>
+    <div><b>Retrato</b> — representação de outra pessoa.</div>
+    <div><b>Autorretrato</b> — o artista representa a si mesmo.</div>
+    <div><b>Selfie</b> — autorretrato instantâneo feito com celular.</div>
+    <div><b>Renascimento</b> — período (séc. XIV–XVII) que valorizou a cultura greco-romana.</div>
+    <div><b>Perspectiva</b> — técnica de dar profundidade e proporção à imagem.</div>
+    <div><b>Humanismo</b> — visão que valoriza a capacidade e a dignidade do ser humano.</div>
+    <div><b>Compositor</b> — quem escreve a música.</div>
+    <div><b>Intérprete</b> — quem executa ou canta a música.</div>
+  </div>
+
+  <div class="fim" id="fim">
+    <h3 id="fim-h3">🔒 Próxima etapa: Simulado</h3>
+    <p id="fim-txt">Role até aqui e confirme a leitura para destravar o Simulado.</p>
+    <button id="btn-li" onclick="confirmarLeitura()" disabled>✅ Li o resumo até o fim</button>
+    <a class="btn off" id="btn-prox" href="simulado.html">📝 Pronto para o Simulado!</a>
+  </div>
+
+  <div class="rodape">Feito com carinho para o jovem aprendiz. 🖼️</div>
+</div>
+
+<div class="modal-bg" id="lock">
+  <div class="modal">
+    <div class="big">🔒</div>
+    <p><b>Esta etapa ainda está trancada.</b></p>
+    <p id="lock-txt">Para abrir o Resumo, envie o Quiz.</p>
+    <a href="index.html">Voltar ao início</a>
+  </div>
+</div>
+
+<script>
+/* ====== TRILHA COM CADEADOS (módulo comum do kit) ====== */
+var KIT='galeria_meialuz';
+var TRILHA=[
+ {id:'leitura', chave:KIT+'_leitura_v1', nome:'Leitura Guiada', arquivo:'leitura-guiada.html', emoji:'📖'},
+ {id:'quiz', chave:KIT+'_quiz_v1', nome:'Quiz', arquivo:'quiz.html', emoji:'🎯'},
+ {id:'resumo', chave:KIT+'_resumo_v1', nome:'Resumo', arquivo:'resumo.html', emoji:'🗺️'},
+ {id:'simulado', chave:KIT+'_simulado_v1', nome:'Simulado', arquivo:'simulado.html', emoji:'📝'}
+];
+function lerJSON(k){ try{ var s=localStorage.getItem(k); return s?JSON.parse(s):null; }catch(e){ return null; } }
+function trilhaLiberada(){ var t=lerJSON(KIT+'_trilha_v1'); return !!(t&&t.liberadoPelosPais); }
+function etapaConcluida(id){ var e=TRILHA.filter(function(t){return t.id===id;})[0]; var d=lerJSON(e.chave); return !!(d&&d.concluido); }
+function podeAbrir(id){ var idx=TRILHA.map(function(t){return t.id;}).indexOf(id); if(idx<=0||trilhaLiberada()) return true; return etapaConcluida(TRILHA[idx-1].id); }
+function marcarNav(){
+  var links=document.querySelectorAll('#nav a[data-etapa]');
+  for(var i=0;i<links.length;i++){ var id=links[i].getAttribute('data-etapa'); if(!podeAbrir(id)){ links[i].classList.add('lock'); links[i].textContent='🔒 '+links[i].textContent.replace('🔒 ',''); } else { links[i].classList.remove('lock'); links[i].textContent=links[i].textContent.replace('🔒 ',''); } }
+}
+function checarTrava(){
+  if(podeAbrir('resumo')) return true;
+  var L=lerJSON(KIT+'_leitura_v1');
+  document.getElementById('lock-txt').textContent=(L&&L.concluido)?'Para abrir o Resumo, envie o Quiz.':'Para abrir o Resumo, conclua a Leitura Guiada e envie o Quiz.';
+  document.getElementById('lock').classList.add('show');
+  document.querySelector('.wrap').style.filter='blur(6px)';
+  return false;
+}
+
+/* ====== ESTADO DO RESUMO ====== */
+var CHAVE=KIT+'_resumo_v1'; var mem={}; var estado=carregar();
+function carregar(){ try{ var s=localStorage.getItem(CHAVE); if(s) return JSON.parse(s);}catch(e){ if(mem[CHAVE]) return JSON.parse(mem[CHAVE]); } return {rolagemMax:0}; }
+function salvar(){ var s=JSON.stringify(estado); try{ localStorage.setItem(CHAVE,s);}catch(e){ mem[CHAVE]=s; } document.getElementById('salvo').textContent='📏 Rolagem máxima: '+Math.round(estado.rolagemMax||0)+'%'; }
+function medirRolagem(){
+  var h=document.documentElement; var total=h.scrollHeight-h.clientHeight; var pct= total<=0?100:Math.min(100,(window.scrollY||h.scrollTop)/total*100);
+  if(pct>(estado.rolagemMax||0)){ estado.rolagemMax=pct; salvar(); }
+  var b=document.getElementById('btn-li'); if(!estado.concluido && (estado.rolagemMax||0)>=90){ b.disabled=false; }
+}
+function confirmarLeitura(){ if(estado.concluido) return; estado.concluido=true; estado.concluidoEm=new Date().toISOString(); salvar(); atualizarFim(); }
+function atualizarFim(){
+  var h3=document.getElementById('fim-h3'), txt=document.getElementById('fim-txt'), b=document.getElementById('btn-li'), a=document.getElementById('btn-prox');
+  if(estado.concluido||trilhaLiberada()){ h3.textContent='✅ Resumo lido — Simulado destravado!'; txt.textContent=estado.concluido?'Agora encare o Simulado valendo, como se fosse a prova.':'Trilha liberada pelos pais.'; b.disabled=true; b.textContent=estado.concluido?'✅ Resumo concluído':'✅ Li o resumo até o fim'; a.classList.remove('off'); }
+  else { h3.textContent='🔒 Próxima etapa: Simulado'; txt.textContent=(estado.rolagemMax||0)>=90?'Confirme a leitura para destravar o Simulado.':'Role até o fim da página para habilitar o botão (rolagem: '+Math.round(estado.rolagemMax||0)+'%).'; a.classList.add('off'); }
+  marcarNav();
+}
+function exportar(){ var blob=new Blob([JSON.stringify(estado,null,2)],{type:'application/json'}); var a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='resumo_galeria-meia-luz.json'; a.click(); }
+
+if(checarTrava()){ salvar(); atualizarFim(); window.addEventListener('scroll',function(){ medirRolagem(); atualizarFim(); }); setTimeout(medirRolagem,300); } else { marcarNav(); }
+</script>
+</body>
+</html>
